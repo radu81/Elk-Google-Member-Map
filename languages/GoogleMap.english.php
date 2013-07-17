@@ -172,5 +172,3 @@ $txt['wc-female'] = 'female';
 $txt['wc-male'] = 'male';
 $txt['wc'] = 'unisex';
 $txt['wheelchair'] = 'wheelchair';
-
-?>
