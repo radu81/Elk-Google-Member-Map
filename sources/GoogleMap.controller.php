@@ -67,7 +67,7 @@ class GoogleMap_Controller extends Action_Controller
 			$this->gmm_buildpins();
 
 		// Load in our javascript
-		loadJavascriptFile('markerclusterer_compiled.js');
+		loadJavascriptFile('markerclusterer_packed.js');
 		loadJavascriptFile('http://maps.google.com/maps/api/js?sensor=false', array(), 'sensor.js');
 
 		// Show the map
@@ -449,7 +449,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Begin the XML output
 		$last_week = time() - (7 * 24 * 60 * 60);
-		echo '<?xml version="1.0" encoding="UTF-8"?' . '>
+		echo '<?xml version="1.0" encoding="UTF-8"?', '>
 		<markers>';
 		if (isset($memberContext))
 		{
