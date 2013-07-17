@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.elkarte.net/site/modification">
+<modification xmlns="http://www.elkarte.net/site/modification" xmlns:elk="http://www.elkarte.net/">
+	
+<file name="$themedir/languages/Who.english.php" error="skip">
+	<operation>
+		<search position="before"><![CDATA[$txt['whoall_who'] = 'Viewing <a href="' . $scripturl . '?action=who">Who\'s Online</a>.';]]></search>
+		<add><![CDATA[
+$txt['whoall_googlemap'] = 'Viewing the <a href="' . $scripturl . '?action=googlemap">Member Map</a>.';
+$txt['whoall_.kml'] = 'Viewing the Google Earth Feed.';
+]]></add>
+	</operation>
+</file>
+
+</modification>

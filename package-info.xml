@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
+<package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
+	<id>Spuds:gmmMod</id>
+	<name>Google Member Map</name>
+	<version>1.0</version>
+	<type>modification</type>
+	<license><![CDATA[
+/**
+ * Google Member Map
+ *
+ * @author spuds
+ * @license MPL 1.1 http://mozilla.org/MPL/1.1/
+ *
+ * @version 1.0
+ */
+]]></license>
+	<install for="1.0 Alpha - 1.0.99">
+		<readme type="file" parsebbc="true">install-readme.txt</readme>
+		<require-file name="sources/GoogleMapIntegration.php" destination="SOURCEDIR">Our integration Functions</require-file>
+		<require-file name="sources/GoogleMap.controller.php" destination="CONTROLLERDIR">The addon controller</require-file>
+		<require-file name="sources/GoogleMap.subs.php" destination="SUBSDIR">The addon helpers</require-file>
+		<require-file name="scripts/markerclusterer_compiled.js" destination="$themedir/scripts">Javascript to enable the cluster functions</require-file>
+		<require-dir name="scripts/jscolor" destination="BOARDDIR/themes/default/scripts">Javascript to enable color selection</require-dir>
+		<require-file name="css/GoogleMap.css" destination="$themedir/css">Style Sheets</require-file>
+		<require-file name="templates/GoogleMap.template.php" destination="$themedir">The template for viewing the member map</require-file>
+		<require-file name="languages/GoogleMap.english.php" destination="LANGUAGEDIR">The language strings</require-file>
+		<require-file name="google_earth_feed.gif" destination="$imagesdir" />
+		<database type="file">add_settings.php</database>
+		<modification type="file">modification.xml</modification>
+		<modification>language.xml</modification>
+		<hook hook="integrate_admin_areas" file="SOURCEDIR/GoogleMapIntegration.php" function="iaa_googlemap" />
+		<hook hook="integrate_modify_modifications" file="SOURCEDIR/GoogleMapIntegration.php" function="imm_googlemap" />
+		<hook hook="integrate_menu_buttons" file="SOURCEDIR/GoogleMapIntegration.php" function="imb_googlemap" />
+		<hook hook="integrate_load_permissions" file="SOURCEDIR/GoogleMapIntegration.php" function="ilp_googlemap" />
+		<hook hook="integrate_member_context" file="SOURCEDIR/GoogleMapIntegration.php" function="imc_googlemap" />
+		<hook hook="integrate_load_member_data" file="SOURCEDIR/GoogleMapIntegration.php" function="ilmd_googlemap" />
+		<hook hook="integrate_load_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ilpf_googlemap" />
+		<hook hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
+		<credits url="www.elkarte.net" license="MPL 1.1" copyright="spuds">Insert addon credits</credits>
+		<redirect url="index.php?action=admin;area=modsettings;sa=googlemap" timeout="5000">redirect.txt</redirect>
+	</install>
+
+	<uninstall for="1.0 Alpha - 1.0.99">
+		<readme type="file" parsebbc="true">uninstall-readme.txt</readme>
+		<hook reverse="true" hook="integrate_admin_areas" file="SOURCEDIR/GoogleMapIntegration.php" function="iaa_googlemap" />
+		<hook reverse="true" hook="integrate_modify_modifications" file="SOURCEDIR/GoogleMapIntegration.php" function="imm_googlemap" />
+		<hook reverse="true" hook="integrate_menu_buttons" file="SOURCEDIR/GoogleMapIntegration.php" function="imb_googlemap" />
+		<hook reverse="true" hook="integrate_load_permissions" file="SOURCEDIR/GoogleMapIntegration.php" function="ilp_googlemap" />
+		<hook reverse="true" hook="integrate_member_context" file="SOURCEDIR/GoogleMapIntegration.php" function="imc_googlemap" />
+		<hook reverse="true" hook="integrate_load_member_data" file="SOURCEDIR/GoogleMapIntegration.php" function="ilmd_googlemap" />
+		<hook reverse="true" hook="integrate_load_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ilpf_googlemap" />
+		<hookreverse="true"  hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
+		<remove-file name="SOURCEDIR/GoogleMapIntegration.php" />
+		<remove-file name="CONTROLLERDIR/GoogleMap.controller.php" />
+		<remove-file name="SUBSDIR/GoogleMap.subs.php" destination="SUBSDIR" />
+		<remove-file name="$themedir/scripts/markerclusterer_compiled.js" />
+		<remove-dir name="BOARDDIR/themes/default/scripts/jscolor" />
+		<remove-file name="$themedir/css/GoogleMap.css" />
+		<remove-file name="$themedir/GoogleMap.template.php" />
+		<remove-file name="LANGUAGEDIR/GoogleMap.english.php" />
+		<remove-file name="$imagesdir/google_earth_feed.gif" />
+		<modification type="file" reverse="true">modification.xml</modification>
+		<modification reverse="true">language.xml</modification>
+		<database type="file">remove_settings.php</database>
+	</uninstall>
+</package-info>

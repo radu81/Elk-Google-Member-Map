@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.elkarte.net/site/modification">
+<!--
+  ==========================================================================
+  package "Google Member Map" Addon for Elkarte
+  author Spuds
+  copyright (c) 2013 Spuds
+  license license.txt (included with package) MPL 1.1
+  ==========================================================================
+-->
+<modification xmlns="http://www.elkarte.net/site/modification" xmlns:elk="http://www.elkarte.net/">
+
+	<file name="CONTROLLERDIR/ProfileOptions.controller.php">
+		<operation>
+			<search position="replace"><![CDATA[
+				'karma_good', 'hr',
+				'website_title', 'website_url',
+]]></search>
+			<add><![CDATA[
+				'karma_good', 'hr',
+				'latitude', 'hr',
+				'website_title', 'website_url',
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/ProfileInfo.template.php" error="skip">
+		<operation>
+			<search position="replace"><![CDATA[					<dd>', $context['member']['last_login'], '</dd>
+				</dl>';
+]]></search>
+			<add><![CDATA[					<dd>', $context['member']['last_login'], '</dd>';
+
+	if (!empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'))
+	{
+		if (!empty($context['member']['googleMap']['longitude']) && !empty($context['member']['googleMap']['latitude']))
+		{
+			echo '
+				</dl>
+				<dl class="noborder">
+					<dt>',  $txt['googleMap_Where'], ' ' . (preg_match('~\s(and|&|&amp;)\s~i', $context['member']['name']) ? $txt['googleMap_Whereare'] : $txt['googleMap_Whereis']) . ' ', $context['member']['name'], ':</dt>
+					<dd>
+						<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+						<div id="map_canvas" style="width: 100%; height: 350px; color: #000000;"></div>
+						<input type="hidden" name="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
+						<input type="hidden" name="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />
+						<input type="hidden" name="pindate" size="50" value="', $context['member']['googleMap']['pindate'], '" />
+						<script type="text/javascript"><!-- // --><', '', '![CDATA[
+							var latlng = new google.maps.LatLng(', $context['member']['googleMap']['latitude'], ', ', $context['member']['googleMap']['longitude'], ');
+							var options = {
+								zoom: 14,
+								center: latlng,
+								scrollwheel: false,
+								mapTypeId: google.maps.MapTypeId.HYBRID,
+								mapTypeControlOptions: {
+									style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+								},
+								zoomControl: true,
+								zoomControlOptions: {
+									style: google.maps.ZoomControlStyle.DEFAULT
+								},
+							};
+							map = new google.maps.Map(document.getElementById("map_canvas"), options);
+							var marker = new google.maps.Marker({
+								position: latlng,
+								map: map
+							});
+						// ]]', '', '></script>
+					</dd>
+				</dl>';
+		}
+	}
+	else
+		echo '
+				</dl>';
+]]></add>
+		</operation>
+	</file>
+
+</modification>
