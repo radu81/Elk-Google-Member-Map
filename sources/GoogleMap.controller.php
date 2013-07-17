@@ -49,12 +49,12 @@ class GoogleMap_Controller extends Action_Controller
 	/**
 	 * gmm_main()
 	 *
-	 * Calls the template which in turn calls makes an
-	 * xml or js request
+	 * Calls the googlemap template which in turn makes the
+	 * xml or js request for data
 	 */
 	public function action_gmm_main()
 	{
-		global $context, $txt, $modSettings, $scripturl;
+		global $context, $txt, $modSettings;
 
 		// Load up our template and style sheet
 		loadTemplate('GoogleMap', 'GoogleMap');
@@ -283,6 +283,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Our own initial state button since its gone walkies in the v3 api
 		var reset = document.getElementById("googleMapReset");
+
 		reset.style.filter = "alpha(opacity=0)";
 		reset.style.mozOpacity = "0";
 		reset.style.opacity = "0";
@@ -418,7 +419,7 @@ class GoogleMap_Controller extends Action_Controller
 	 * Creates xml data for use on a map
 	 * Builds the pin info window content
 	 * Builds the map sidebar layout
-	 * Called from the googlemap JS initialize function
+	 * Called from the googlemap JS initialize function via ajax (?action=GoogleMap;sa=xml)
 	 */
 	public function action_xml()
 	{
@@ -571,8 +572,8 @@ class GoogleMap_Controller extends Action_Controller
 	}
 
 	/**
-	 * ShowKML()
-	 *
+	 * Creates google earth kml data
+	 * Generates a file for saving that can then be imported in to Google Earth
 	 */
 	public function action_kml()
 	{
@@ -804,11 +805,7 @@ class GoogleMap_Controller extends Action_Controller
 	}
 
 	/**
-	 * gmm_buildpins()
-	 *
 	 * Does the majority of work in determining how the map pin should look based on admin settings
-	 *
-	 * @return
 	 */
 	private function gmm_buildpins()
 	{
@@ -876,13 +873,10 @@ class GoogleMap_Controller extends Action_Controller
 	}
 
 	/**
-	 * gmm_validate_color()
-	 *
 	 * Makes sure we have a 6digit hex for the color definitions or sets a default value
 	 *
 	 * @param mixed $color
 	 * @param mixed $default
-	 * @return
 	 */
 	private function gmm_validate_color($color, $default)
 	{
@@ -900,11 +894,7 @@ class GoogleMap_Controller extends Action_Controller
 	}
 
 	/**
-	 * gmm_validate_pin()
-	 *
-	 * outputs the correct goggle chart pin type based on selection
-	 *
-	 * @return
+	 * Outputs the correct goggle chart pin type based on selection
 	 */
 	private function gmm_validate_pin($area, $default)
 	{
