@@ -37,7 +37,7 @@
 		<hook hook="integrate_load_member_data" file="SOURCEDIR/GoogleMapIntegration.php" function="ilmd_googlemap" />
 		<hook hook="integrate_load_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ilpf_googlemap" />
 		<hook hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
-		<credits url="www.elkarte.net" license="MPL 1.1" copyright="spuds">Insert addon credits</credits>
+		<credits url="www.elkarte.net" license="MPL 1.1" copyright="spuds">Google Member Map</credits>
 		<redirect url="index.php?action=admin;area=modsettings;sa=googlemap" timeout="5000">redirect.txt</redirect>
 	</install>
 
