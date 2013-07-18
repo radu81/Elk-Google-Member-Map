@@ -50,7 +50,7 @@
 		<hook reverse="true" hook="integrate_member_context" file="SOURCEDIR/GoogleMapIntegration.php" function="imc_googlemap" />
 		<hook reverse="true" hook="integrate_load_member_data" file="SOURCEDIR/GoogleMapIntegration.php" function="ilmd_googlemap" />
 		<hook reverse="true" hook="integrate_load_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ilpf_googlemap" />
-		<hookreverse="true"  hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
+		<hook reverse="true"  hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
 		<remove-file name="SOURCEDIR/GoogleMapIntegration.php" />
 		<remove-file name="CONTROLLERDIR/GoogleMap.controller.php" />
 		<remove-file name="SUBSDIR/GoogleMap.subs.php" destination="SUBSDIR" />
