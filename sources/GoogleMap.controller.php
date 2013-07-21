@@ -736,22 +736,20 @@ class GoogleMap_Controller extends Action_Controller
 					if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
 						echo '
 										<li>
-											<a href="' . $marker['website']['url'] . '" title="' . $marker['website']['title'] . '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/www_sm.gif" height="16" alt="' . $marker['website']['title'] . '" border="0" />' : $txt['www']) . '
+											<a href="', $marker['website']['url'], '" title="', $marker['website']['title'], '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/www_sm.gif" height="16" alt="' . $marker['website']['title'] . '" border="0" />' : $txt['www']) . '
 										</li>';
 
 					// Don't show the email address if they want it hidden.
 					if (in_array($marker['show_email'], array('yes', 'yes_permission_override', 'no_through_forum')))
 						echo '
 										<li>
-											<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $marker['id'] . '">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/email_sm.gif" alt="' . $txt['email'] . '" height="16" title="' . $txt['email'] . '" />' : $txt['email']) . '
+											<a href="', $scripturl, '?action=emailuser;sa=email;uid=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/email_sm.gif" alt="' . $txt['email'] . '" height="16" title="' . $txt['email'] . '" />' : $txt['email']) . '
 										</li>';
 
 					// Show the PM tag
 					echo '
 										<li>
-											<a href="' . $scripturl . '?action=pm;sa=send;u=' . $marker['id'] . '">';
-					echo $settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.gif" height="16" border="0" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']);
-					echo '
+											<a href="', $scripturl, '?action=pm;sa=send;u=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.gif" height="16" border="0" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'])) . '
 										</li>
 									</ul>
 								</li>';
@@ -763,10 +761,10 @@ class GoogleMap_Controller extends Action_Controller
 					</div>
 				]]>
 			</description>
-			<name>' . $marker['name'] . '</name>
+			<name>', $marker['name'], '</name>
 			<LookAt>
-				<longitude>' . round($marker['googleMap']['longitude'], 8) . '</longitude>
-				<latitude>' . round($marker['googleMap']['latitude'], 8) . '</latitude>
+				<longitude>', round($marker['googleMap']['longitude'], 8), '</longitude>
+				<latitude>', round($marker['googleMap']['latitude'], 8), '</latitude>
 				<range>15000</range>
 			</LookAt>';
 
