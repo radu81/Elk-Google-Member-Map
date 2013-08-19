@@ -113,7 +113,7 @@ $columns[] = array(
 );
 
 foreach ($tables as $table)
-	$db->create_table($table['table_name'], $table['columns'], $table['indexes'], $table['parameters'], $table['if_exists'], $table['error']);
+	$dbtbl->db_create_table($table['table_name'], $table['columns'], $table['indexes'], $table['parameters'], $table['if_exists'], $table['error']);
 
 foreach ($rows as $row)
 	$db->insert($row['method'], $row['table_name'], $row['columns'], $row['data'], $row['keys']);
