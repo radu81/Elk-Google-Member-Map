@@ -95,6 +95,9 @@ class GoogleMap_Controller extends Action_Controller
 		// Start up the session URL fixer.
 		ob_start('ob_sessrewrite');
 
+		// Let them know what they are about to get
+		header('Content-Type: application/javascript');
+
 		// Our push pins as defined from gmm_buildpins
 		$this->gmm_buildpins();
 		$npin = $modSettings['npin'];
