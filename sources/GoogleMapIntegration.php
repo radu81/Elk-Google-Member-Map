@@ -94,6 +94,19 @@ function ilpf_googlemap(&$profile_fields)
 }
 
 /**
+ * Profile fields hook, integrate_' . $hook . '_profile_fields
+ * Called from Profile.subs.php / setupProfileContext
+ * Used to add additonal sections to the profile context for a page load, here we
+ * add latitude to be displayed, its defined by integrate_load_profile_fields above
+ *
+ * @param array $fields
+ */
+function ifpf_googlemap(&$fields)
+{
+	$fields = elk_array_insert($fields, 'website_title', array('latitude', 'hr'), 'before', false, false);
+}
+
+/**
  * integrate_menu_buttons
  *
  * Menu Button hook, called from subs.php
@@ -101,7 +114,7 @@ function ilpf_googlemap(&$profile_fields)
  *
  * @param array $buttons
  */
-function imb_googlemap(&$buttons)
+function imb_googlemap(&$buttons, &$menu_count)
 {
 	global $txt, $scripturl, $modSettings;
 
@@ -109,14 +122,6 @@ function imb_googlemap(&$buttons)
 
 	// Where do we want to place our button
 	$insert_after = empty($modSettings['googleMap_ButtonLocation']) ? 'calendar' : $modSettings['googleMap_ButtonLocation'];
-	$counter = 0;
-
-	// find the location in the buttons array
-	foreach ($buttons as $area => $dummy)
-	{
-		if (++$counter && $area == $insert_after)
-			break;
-	}
 
 	// Define the new menu item(s)
 	$new_menu = array(
@@ -124,12 +129,10 @@ function imb_googlemap(&$buttons)
 			'title' => $txt['googleMap'],
 			'href' => $scripturl . '?action=googlemap',
 			'show' => !empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'),
-			'sub_buttons' => array(),
 		)
 	);
 
-	// Insert the new items in the existing array with array-a-matic ...it slices, it dices, it puts it back together
-	$buttons = array_merge(array_slice($buttons, 0, $counter), array_merge($new_menu, array_slice($buttons, $counter)));
+	$buttons['home']['sub_buttons'] = elk_array_insert($buttons['home']['sub_buttons'], $insert_after, $new_menu, 'after');
 }
 
 /**
@@ -178,13 +181,13 @@ function iaa_googlemap(&$admin_areas)
 	global $txt;
 
 	loadlanguage('GoogleMap');
-	$admin_areas['config']['areas']['modsettings']['subsections']['googlemap'] = array($txt['googleMap']);
+	$admin_areas['config']['areas']['addonsettings']['subsections']['googlemap'] = array($txt['googleMap']);
 }
 
 /**
- * imm_googlemap()
+ * ifpf_googlemap()
  *
- * Modifications hook, integrate_modify_modifications, called from ManageSettings.php
+ * Addons hook, integrate_forum_profile_fields, called from profile.subs.php
  * used to add new menu screens areas.
  *
  * @param array $sub_actions
@@ -196,6 +199,20 @@ function imm_googlemap(&$sub_actions)
 		'file' => 'GoogleMapIntegration.php',
 		'function' => 'ModifyGoogleMapSettings'
 	);
+}
+
+/**
+ * integrate_profile_summary, called from ProfileInfo.controller.php
+ */
+function iprofs_googlemap()
+{
+	global $context, $modSettings;
+
+	if (!empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'))
+	{
+		loadTemplate('GoogleMap');
+		$context['summarytabs']['summary']['templates'] = elk_array_insert($context['summarytabs']['summary']['templates'], 1, array('gmm'), 'after');
+	}
 }
 
 /**
@@ -306,12 +323,12 @@ function ModifyGoogleMapSettings()
 	{
 		checkSession();
 		Settings_Form::save_db($config_vars);
-		redirectexit('action=admin;area=modsettings;sa=googlemap');
+		redirectexit('action=admin;area=addonsettings;sa=googlemap');
 	}
 
 	// Continue on to the settings template
 
-	$context['post_url'] = $scripturl . '?action=admin;area=modsettings;save;sa=googlemap';
+	$context['post_url'] = $scripturl . '?action=admin;area=addonsettings;save;sa=googlemap';
 	$context['settings_title'] = $txt['googleMap'];
 	loadJavascriptFile('jscolor/jscolor.js');
 	addInlineJavascript('

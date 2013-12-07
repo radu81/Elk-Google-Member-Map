@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package "Google Member Map" Addon for Elkarte
  * @author Spuds
@@ -172,7 +173,7 @@ function template_map()
 
 		// Load the scripts so we can render the map
 		echo '
-				<script type="text/javascript" src="', $scripturl, '?action=googlemap;sa=js;count='. $context['total_pins'] .'"></script>';
+				<script src="', $scripturl, '?action=googlemap;sa=js;count='. $context['total_pins'] .'"></script>';
 	}
 }
 
@@ -191,13 +192,13 @@ function template_profile_googlemap_modify()
 			<br /><span class="smalltext">'. $txt['googleMap_PleaseClick'].'<br />' . $txt['googleMap_Disclaimer'] . '</span>
 		</dt>
 		<dd>
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+		<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
 		<input id="searchTextField" type="text" size="50">
         <div id="map_canvas"></div>
         <input type="hidden" name="latitude" id="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
         <input type="hidden" name="longitude" id="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />
         <input type="hidden" name="pindate" id="pindate" size="50" value="', $context['member']['googleMap']['pindate'], '" />
-        <script type="text/javascript"><!-- // --><', '', '![CDATA[
+        <script><!-- // --><', '', '![CDATA[
 		var markersArray = [];
 
 		// Used to clear any previous pin placed on the map
@@ -264,14 +265,16 @@ function template_profile_googlemap_modify()
 			});
 
 			// Set up the searchbox to be part of the map
-			var input = document.getElementById("searchTextField");
-			var autocomplete = new google.maps.places.Autocomplete(input);
+			var input = document.getElementById("searchTextField"),
+				autocomplete = new google.maps.places.Autocomplete(input);
+
 			autocomplete.bindTo("bounds", map);
 			autocomplete.setTypes(["geocode"]);
 
 			// Watch for a search box selection, when found move and zoom to that place
 			google.maps.event.addListener(autocomplete, "place_changed", function() {
 				var place = autocomplete.getPlace();
+
 				if (place.geometry.viewport)
 				{
 					map.fitBounds(place.geometry.viewport);
@@ -286,5 +289,56 @@ function template_profile_googlemap_modify()
 		google.maps.event.addDomListener(window, "load", initialize);
 		// ]]', '', '></script>
 </dd>';
+	}
+}
+
+/**
+ * Profile Summary template for showing the users map location, if they have one set
+ */
+function template_profile_block_gmm()
+{
+	global $scripturl, $context, $txt;
+
+	// If they have a pin set then we show the block
+	if (!empty($context['member']['googleMap']['longitude']) && !empty($context['member']['googleMap']['latitude']))
+	{
+		// Try to get the shout out right where is vs where are
+		$title = $txt['googleMap_Where'] . ' ' . (preg_match('~\s(and|&|&amp;)\s~i', $context['member']['name']) ? $txt['googleMap_Whereare'] : $txt['googleMap_Whereis']) . ' ' . $context['member']['name'];
+
+		echo '
+	<div class="profileblock">
+		<h3 class="category_header hdicon cat_img_eye">
+			', ($context['user']['is_owner']) ? '<a href="' . $scripturl . '?action=profile;area=forumprofile;u=' . $context['member']['id'] . '">' . $title . '</a>' : $title, '
+		</h3>
+		<div class="profileblock">
+			<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+			<div id="map_canvas" style="width: 100%; height: 300px; color: #000000;"></div>
+				<input type="hidden" name="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
+				<input type="hidden" name="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />
+				<input type="hidden" name="pindate" size="50" value="', $context['member']['googleMap']['pindate'], '" />
+				<script><!-- // --><![CDATA[
+					var latlng = new google.maps.LatLng(', $context['member']['googleMap']['latitude'], ', ', $context['member']['googleMap']['longitude'], ');
+					var options = {
+						zoom: 14,
+						center: latlng,
+						scrollwheel: false,
+						mapTypeId: google.maps.MapTypeId.HYBRID,
+						mapTypeControlOptions: {
+							style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+						},
+						zoomControl: true,
+						zoomControlOptions: {
+							style: google.maps.ZoomControlStyle.DEFAULT
+						},
+					};
+
+					map = new google.maps.Map(document.getElementById("map_canvas"), options);
+					var marker = new google.maps.Marker({
+						position: latlng,
+						map: map
+					});
+				// ]]></script>
+			</div>
+		</div>';
 	}
 }
