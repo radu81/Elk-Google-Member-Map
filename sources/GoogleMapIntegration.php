@@ -120,8 +120,9 @@ function imb_googlemap(&$buttons, &$menu_count)
 
 	loadlanguage('GoogleMap');
 
-	// Where do we want to place our button
+	// Where do we want to place our button (new menu layout, this needs to be redone)
 	$insert_after = empty($modSettings['googleMap_ButtonLocation']) ? 'calendar' : $modSettings['googleMap_ButtonLocation'];
+	$insert_after = 'calendar';
 
 	// Define the new menu item(s)
 	$new_menu = array(
@@ -238,6 +239,7 @@ function ModifyGoogleMapSettings()
 		array('check', 'googleMap_Enable', 'postinput' => $txt['googleMap_license']),
 		// Default Location/Zoom/Map Controls/etc
 		array('title', 'googleMap_MapSettings'),
+		/* New menu structure, need to rethink what makes sense here, for now it will be under calendar in community
 		array('select', 'googleMap_ButtonLocation', array(
 				'home' => $txt['home'],
 				'help' => $txt['help'],
@@ -248,6 +250,7 @@ function ModifyGoogleMapSettings()
 				'profile' => $txt['profile'],
 				'pm' => $txt['pm_short'])
 		),
+		*/
 		array('float', 'googleMap_DefaultLat', 10, 'postinput' => $txt['googleMap_DefaultLat_info']),
 		array('float', 'googleMap_DefaultLong', 10, 'postinput' => $txt['googleMap_DefaultLong_info']),
 		array('int', 'googleMap_DefaultZoom', 'subtext' => $txt['googleMap_DefaultZoom_Info']),
