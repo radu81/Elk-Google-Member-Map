@@ -1,8 +1,23 @@
 /* Google Maps */
-.googleMap
-{
+.googleMap {
 	font-size: small;
 	border: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 280px;
+}
+
+.gmm_poster {
+    vertical-align: top;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.gmm_avatar {
+	float: right;
+	width: 120px;
+	margin-left: 4px;
 }
 
 #mapWindow {

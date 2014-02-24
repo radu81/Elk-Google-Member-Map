@@ -422,7 +422,7 @@ class GoogleMap_Controller extends Action_Controller
 			if (infowindow)
 				infowindow.close();
 
-			infowindow = new google.maps.InfoWindow({content: html, maxWidth:240});
+			infowindow = new google.maps.InfoWindow({content: html, maxWidth:280});
 			infowindow.open(map, marker);
 		});
 
@@ -444,7 +444,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		var marker = gmarkers[i]["position"];
 
-		infowindow = new google.maps.InfoWindow({content: htmls[i], maxWidth:240});
+		infowindow = new google.maps.InfoWindow({content: htmls[i], maxWidth:280});
 		infowindow.setPosition(marker);
 		infowindow.open(map);
 	}
@@ -518,19 +518,19 @@ class GoogleMap_Controller extends Action_Controller
 					$datablurb = '
 			<div class="googleMap">
 				<h4>
-					<a href="' . $marker['online']['href'] . '">
-						<img src="' . $marker['online']['image_href'] . '" alt="' . $marker['online']['text'] . '" /></a>
+					<a  href="' . $marker['online']['href'] . '">
+						<img class="centericon" src="' . $marker['online']['image_href'] . '" alt="' . $marker['online']['text'] . '" /></a>
 					<a href="' . $marker['href'] . '">' . $marker['name'] . '</a>
 				</h4>';
 
 					// avatar?
 					if (!empty($settings['show_user_images']) && empty($options['show_no_avatars']) && !empty($marker['avatar']['image']))
 						$datablurb .= '
-					<div class="floatright" style="height:' . $div_height . 'px">' . $marker['avatar']['image'] . '<br /></div>';
+					<div class="gmm_avatar" style="height:' . $div_height . 'px">' . $marker['avatar']['image'] . '<br /></div>';
 
 					// user info section
 					$datablurb .= '
-				<div class="floatleft">
+				<div class="gmm_poster">
 					<ul class="reset">';
 
 					// Show the member's primary group (like 'Administrator') if they have one.
@@ -563,21 +563,21 @@ class GoogleMap_Controller extends Action_Controller
 						if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
 							$datablurb .= '
 								<li>
-									<a href="' . $marker['website']['url'] . '" title="' . $marker['website']['title'] . '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/www_sm.gif" height="16" alt="' . $marker['website']['title'] . '" border="0" />' : $txt['www']) . '
+									<a href="' . $marker['website']['url'] . '" title="' . $marker['website']['title'] . '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $marker['website']['title'] . '" />' : $txt['www']) . '
 								</li>';
 
 						// Don't show the email address if they want it hidden.
 						if (in_array($marker['show_email'], array('yes', 'yes_permission_override', 'no_through_forum')))
 							$datablurb .= '
 								<li>
-									<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $marker['id'] . '">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/email_sm.gif" alt="' . $txt['email'] . '" height="16" title="' . $txt['email'] . '" />' : $txt['email']) . '
+									<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $marker['id'] . '">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/email_sm.png" alt="' . $txt['email'] . '" title="' . $txt['email'] . '" />' : $txt['email']) . '
 								</li>';
 
 						// Show the PM tag
 						$datablurb .= '
 								<li>
 									<a href="' . $scripturl . '?action=pm;sa=send;u=' . $marker['id'] . '">';
-						$datablurb .= $settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.gif" height="16" border="0" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']);
+						$datablurb .= $settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.png" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']);
 						$datablurb .= '
 								</li>
 							</ul>
@@ -788,20 +788,20 @@ class GoogleMap_Controller extends Action_Controller
 					if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
 						echo '
 										<li>
-											<a href="', $marker['website']['url'], '" title="', $marker['website']['title'], '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/www_sm.gif" height="16" alt="' . $marker['website']['title'] . '" border="0" />' : $txt['www']) . '
+											<a href="', $marker['website']['url'], '" title="', $marker['website']['title'], '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $marker['website']['title'] . '" />' : $txt['www']) . '
 										</li>';
 
 					// Don't show the email address if they want it hidden.
 					if (in_array($marker['show_email'], array('yes', 'yes_permission_override', 'no_through_forum')))
 						echo '
 										<li>
-											<a href="', $scripturl, '?action=emailuser;sa=email;uid=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/email_sm.gif" alt="' . $txt['email'] . '" height="16" title="' . $txt['email'] . '" />' : $txt['email']) . '
+											<a href="', $scripturl, '?action=emailuser;sa=email;uid=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/email_sm.png" alt="' . $txt['email'] . '" title="' . $txt['email'] . '" />' : $txt['email']) . '
 										</li>';
 
 					// Show the PM tag
 					echo '
 										<li>
-											<a href="', $scripturl, '?action=pm;sa=send;u=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.gif" height="16" border="0" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'])) . '
+											<a href="', $scripturl, '?action=pm;sa=send;u=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.png" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'])) . '
 										</li>
 									</ul>
 								</li>';
