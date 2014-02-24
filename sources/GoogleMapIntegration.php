@@ -18,8 +18,11 @@ if (!defined('ELK'))
 /**
  * integrate_member_context hook
  *
- * Called from load.php
- * Used to add items to the $memberContext array
+ * - Called from load.php
+ * - Used to add items to the $memberContext array
+ *
+ * @param int $user
+ * @param mixed $display_custom_fields
  */
 function imc_googlemap($user, $display_custom_fields)
 {
@@ -37,9 +40,12 @@ function imc_googlemap($user, $display_custom_fields)
 /**
  * integrate load member data
  *
- * Called from load.php
- * Used to add columns / tables to the query so additional data can be loaded for a set
+ * - Called from load.php
+ * - Used to add columns / tables to the query so additional data can be loaded for a set
  *
+ * @param string $select_columns
+ * @param mixed[] $select_tables
+ * @param string $set
  */
 function ilmd_googlemap(&$select_columns, &$select_tables, $set)
 {
@@ -50,8 +56,10 @@ function ilmd_googlemap(&$select_columns, &$select_tables, $set)
 /**
  * integrate_load_profile_fields
  *
- * Called from profile.subs
- * Used to add additonal fields to the profile createlist
+ * - Called from profile.subs
+ * - Used to add additonal fields to the profile createlist
+ *
+ * @param mixed[] $profile_fields
  */
 function ilpf_googlemap(&$profile_fields)
 {
@@ -95,11 +103,12 @@ function ilpf_googlemap(&$profile_fields)
 
 /**
  * Profile fields hook, integrate_' . $hook . '_profile_fields
- * Called from Profile.subs.php / setupProfileContext
- * Used to add additonal sections to the profile context for a page load, here we
+ *
+ * - Called from Profile.subs.php / setupProfileContext
+ * - Used to add additonal sections to the profile context for a page load, here we
  * add latitude to be displayed, its defined by integrate_load_profile_fields above
  *
- * @param array $fields
+ * @param mixed[] $fields
  */
 function ifpf_googlemap(&$fields)
 {
@@ -109,10 +118,11 @@ function ifpf_googlemap(&$fields)
 /**
  * integrate_menu_buttons
  *
- * Menu Button hook, called from subs.php
- * used to add top menu buttons
+ * - Menu Button hook, called from subs.php
+ * - used to add top menu buttons
  *
- * @param array $buttons
+ * @param mixed[] $buttons
+ * @param int $menu_count
  */
 function imb_googlemap(&$buttons, &$menu_count)
 {
@@ -139,8 +149,12 @@ function imb_googlemap(&$buttons, &$menu_count)
 /**
  * integrate_profile_save
  *
- * Profile save fields hook, called from Profile.controller.php
- * used to prep and check variables before a profile update is saved
+ * - Profile save fields hook, called from Profile.controller.php
+ * - used to prep and check variables before a profile update is saved
+ *
+ * @param mixed[] $profile_vars
+ * @param mixed[] $post_errors
+ * @param int $memID
  */
 function ips_googlemap(&$profile_vars, &$post_errors, $memID)
 {
@@ -154,14 +168,14 @@ function ips_googlemap(&$profile_vars, &$post_errors, $memID)
 /**
  * ilp_googlemap()
  *
- * Permissions hook, integrate_load_permissions, called from ManagePermissions.php
- * used to add new permisssions
+ * - Permissions hook, integrate_load_permissions, called from ManagePermissions.php
+ * - used to add new permisssions
  *
- * @param array $permissionGroups
- * @param array $permissionList
- * @param array $leftPermissionGroups
- * @param array $hiddenPermissions
- * @param array $relabelPermissions
+ * @param mixed[] $permissionGroups
+ * @param mixed[] $permissionList
+ * @param mixed[] $leftPermissionGroups
+ * @param mixed[] $hiddenPermissions
+ * @param mixed[] $relabelPermissions
  */
 function ilp_googlemap(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions, &$relabelPermissions)
 {
@@ -172,10 +186,10 @@ function ilp_googlemap(&$permissionGroups, &$permissionList, &$leftPermissionGro
 /**
  * iaa_googlemap()
  *
- * Admin Hook, integrate_admin_areas, called from Admin.php
- * used to add/modify admin menu areas
+ * - Admin Hook, integrate_admin_areas, called from Admin.php
+ * - used to add/modify admin menu areas
  *
- * @param array $admin_areas
+ * @param mixed[] $admin_areas
  */
 function iaa_googlemap(&$admin_areas)
 {
@@ -188,10 +202,10 @@ function iaa_googlemap(&$admin_areas)
 /**
  * ifpf_googlemap()
  *
- * Addons hook, integrate_forum_profile_fields, called from profile.subs.php
- * used to add new menu screens areas.
+ * - Addons hook, integrate_forum_profile_fields, called from profile.subs.php
+ * - used to add new menu screens areas.
  *
- * @param array $sub_actions
+ * @param mixed[] $sub_actions
  */
 function imm_googlemap(&$sub_actions)
 {
@@ -203,7 +217,9 @@ function imm_googlemap(&$sub_actions)
 }
 
 /**
- * integrate_profile_summary, called from ProfileInfo.controller.php
+ * integrate_profile_summary,
+ *
+ * - called from ProfileInfo.controller.php
  */
 function iprofs_googlemap()
 {
@@ -219,7 +235,7 @@ function iprofs_googlemap()
 /**
  * ModifyGoogleMapSettings()
  *
- * The defines our settings array and uses our settings class to manage the data
+ * - Defines our settings array and uses our settings class to manage the data
  */
 function ModifyGoogleMapSettings()
 {

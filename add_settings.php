@@ -140,7 +140,7 @@ $request = $db->query('', '
 	VALUES
 		(\'googleMap_view\', ' . implode(', 1),(\'googleMap_view\', ', $groups) . ', 1)');
 
-$request = $db->query('' , '
+$request = $db->query('', '
 	INSERT IGNORE INTO {db_prefix}permissions
 		(permission, id_group, add_deny)
 	VALUES

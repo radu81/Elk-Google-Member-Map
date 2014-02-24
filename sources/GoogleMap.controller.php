@@ -854,7 +854,7 @@ class GoogleMap_Controller extends Action_Controller
 		$mchld .= '|' . $modSettings['googleMap_PinBackground'] . '|' . $modSettings['googleMap_PinForeground'];
 		$cchld .= '|' . $modSettings['googleMap_ClusterBackground'] . '|' . $modSettings['googleMap_ClusterForeground'];
 
-		// Finly build those beautiful pins
+		// Finaly build those beautiful pins
 		$modSettings['npin'] = '?chst=' . $mpin . $mshd . '&chld=' . $mchld;
 		$modSettings['cpin'] = is_int($cpin) ? $cpin : '?chst=' . $cpin . $cshd . '&chld=' . $cchld;
 
@@ -876,8 +876,8 @@ class GoogleMap_Controller extends Action_Controller
 	/**
 	 * Makes sure we have a 6digit hex for the color definitions or sets a default value
 	 *
-	 * @param mixed $color
-	 * @param mixed $default
+	 * @param string $color
+	 * @param string $default
 	 */
 	private function gmm_validate_color($color, $default)
 	{
@@ -896,12 +896,15 @@ class GoogleMap_Controller extends Action_Controller
 
 	/**
 	 * Outputs the correct goggle chart pin type based on selection
+	 *
+	 * @param string $area
+	 * @param string $default
 	 */
 	private function gmm_validate_pin($area, $default)
 	{
 		global $modSettings;
 
-		// return the type of pin requested
+		// Return the type of pin requested
 		if (isset($modSettings[$area]))
 		{
 			switch ($modSettings[$area])
