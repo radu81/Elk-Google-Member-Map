@@ -131,7 +131,7 @@ class GoogleMap_Controller extends Action_Controller
 	 */
 	public function action_js()
 	{
-		global $context, $scripturl, $txt, $modSettings;
+		global $context, $txt, $modSettings;
 
 		// Clean and restart the buffer so we only return JS back to the template
 		ob_end_clean();
@@ -203,7 +203,7 @@ class GoogleMap_Controller extends Action_Controller
 		scaledSize: new google.maps.Size(' . $m_iconscaled_w . ', ' . $m_iconscaled_h . ')
 	};';
 
-	// Gender pins as well?
+		// Gender pins as well?
 		if (!empty($modSettings['googleMap_PinGender']))
 			echo '
 	// The Gender Pins
@@ -223,7 +223,7 @@ class GoogleMap_Controller extends Action_Controller
 		scaledSize: new google.maps.Size(' . $m_iconscaled_w . ', ' . $m_iconscaled_h . ')
 	};';
 
-	// Cluster Pin Styles
+		// Cluster Pin Styles
 		if (!empty($modSettings['googleMap_EnableClusterer']))
 			echo '
 
@@ -330,7 +330,7 @@ class GoogleMap_Controller extends Action_Controller
 		map = new google.maps.Map(document.getElementById("map"), options);
 
 		// Load the members data
-		makeRequest("' . $scripturl . '?action=GoogleMap;sa=xml");
+		makeRequest(elk_scripturl + "?action=GoogleMap;sa=xml");
 
 		// Our own initial state button since its gone walkies in the v3 api
 		var reset = document.getElementById("googleMapReset");
@@ -909,6 +909,8 @@ class GoogleMap_Controller extends Action_Controller
 	 */
 	private function _set_cluster_pin_style()
 	{
+		global $modSettings;
+
 		if ($this->_cpin === 'd_map_pin_icon')
 			$this->_cchld = ((isset($modSettings['googleMap_ClusterIcon']) && trim($modSettings['googleMap_ClusterIcon']) != '') ? $modSettings['googleMap_ClusterIcon'] : 'info');
 		elseif ($this->_cpin === 'd_map_pin_letter')
@@ -927,6 +929,8 @@ class GoogleMap_Controller extends Action_Controller
 	 */
 	private function _set_member_pin_style()
 	{
+		global $modSettings;
+
 		if ($this->_npin === 'd_map_pin_icon')
 			$this->_mchld = ((isset($modSettings['googleMap_PinIcon']) && trim($modSettings['googleMap_PinIcon']) != '') ? $modSettings['googleMap_PinIcon'] : 'info');
 		elseif ($this->_npin === 'd_map_pin_letter')
