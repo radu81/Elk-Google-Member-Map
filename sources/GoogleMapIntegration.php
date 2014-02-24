@@ -131,8 +131,8 @@ function imb_googlemap(&$buttons, &$menu_count)
 	loadlanguage('GoogleMap');
 
 	// Where do we want to place our button (new menu layout, this needs to be redone)
-	$insert_after = empty($modSettings['googleMap_ButtonLocation']) ? 'calendar' : $modSettings['googleMap_ButtonLocation'];
-	$insert_after = 'calendar';
+	$insert_after = empty($modSettings['googleMap_ButtonLocation']) ? 'memberlist' : $modSettings['googleMap_ButtonLocation'];
+	$insert_after = 'memberlist';
 
 	// Define the new menu item(s)
 	$new_menu = array(
