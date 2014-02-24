@@ -19,6 +19,54 @@ if (!defined('ELK'))
 class GoogleMap_Controller extends Action_Controller
 {
 	/**
+	 * Normal pin
+	 * @var string
+	 */
+	protected $_npin;
+
+	/**
+	 * Cluser pin style
+	 * @var string
+	 */
+	protected $_cpin;
+
+	/**
+	 * Female pin style
+	 * @var string
+	 */
+	protected $_fpin;
+
+	/**
+	 * Male pin style
+	 * @var string
+	 */
+	protected $_mpin;
+
+	/**
+	 * Pin background color/icon/text
+	 * @var string
+	 */
+	protected $_mchld;
+
+	/**
+	 * Cluster pin background color/icon/text
+	 * @var string
+	 */
+	protected $_cchld;
+
+	/**
+	 * Normal pin shadow style
+	 * @var string
+	 */
+	protected $_nshd;
+
+	/**
+	 * Cluster pin shadow style
+	 * @var string
+	 */
+	protected $_cshd;
+
+	/**
 	 * Entry point function for GMM, permission checks, makes sure its on
 	 */
 	public function pre_dispatch()
@@ -100,14 +148,14 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Our push pins as defined from gmm_buildpins
 		$this->gmm_buildpins();
-		$npin = $modSettings['npin'];
-		$cpin = $modSettings['cpin'];
-		$mpin = $modSettings['mpin'];
-		$fpin = $modSettings['fpin'];
+		$this->_npin = $modSettings['npin'];
+		$this->_cpin = $modSettings['cpin'];
+		$this->_mpin = $modSettings['mpin'];
+		$this->_fpin = $modSettings['fpin'];
 
 		// Push Pin shadows as well?
-		$mshd = (!empty($modSettings['googleMap_PinShadow'])) ? $mshd = '_withshadow' : $mshd = '';
-		$cshd = (!empty($modSettings['googleMap_ClusterShadow'])) ? $cshd = '_withshadow' : $cshd = '';
+		$this->_nshd = (!empty($modSettings['googleMap_PinShadow'])) ? $this->_nshd = '_withshadow' : $this->_nshd = '';
+		$this->_cshd = (!empty($modSettings['googleMap_ClusterShadow'])) ? $this->_cshd = '_withshadow' : $this->_cshd = '';
 
 		// Validate the specified pin size is not to small
 		$m_iconsize = (isset($modSettings['googleMap_PinSize']) && $modSettings['googleMap_PinSize'] > 19) ? $modSettings['googleMap_PinSize'] : 20;
@@ -115,14 +163,14 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Scaling factors based on these W/H ratios to maintain aspect ratio and overall size
 		// Such that a mixed shadown/no sprite push pin appear the same size
-		$m_iconscaled_w = !empty($mshd) ? $m_iconsize * 1.08 : $m_iconsize * .62;
+		$m_iconscaled_w = !empty($this->_nshd) ? $m_iconsize * 1.08 : $m_iconsize * .62;
 		$m_iconscaled_h = $m_iconsize;
 
-		$c_iconscaled_w = !is_int($cpin) ? (!empty($cshd) ? $c_iconsize * 1.08 : $c_iconsize * .62) : $c_iconsize;
+		$c_iconscaled_w = !is_int($this->_cpin) ? (!empty($this->_cshd) ? $c_iconsize * 1.08 : $c_iconsize * .62) : $c_iconsize;
 		$c_iconscaled_h = $c_iconsize;
 
 		// Set all those anchor points based on the scaled icon size, icon at pin mid bottom
-		$m_iconanchor_w = (!empty($mshd)) ? $m_iconscaled_w / 3.0 : $m_iconscaled_w / 2.0;
+		$m_iconanchor_w = (!empty($this->_nshd)) ? $m_iconscaled_w / 3.0 : $m_iconscaled_w / 2.0;
 		$m_iconanchor_h = $m_iconscaled_h;
 
 		// Pin count
@@ -148,7 +196,7 @@ class GoogleMap_Controller extends Action_Controller
 
 	// Our normal pin to show on the map
 	var npic = {
-		url: chartbase + "' . $npin . '",
+		url: chartbase + "' . $this->_npin . '",
 		size: null,
 		origin: null,
 		anchor: new google.maps.Point(' . $m_iconanchor_w . ', ' . $m_iconanchor_h . '),
@@ -160,7 +208,7 @@ class GoogleMap_Controller extends Action_Controller
 			echo '
 	// The Gender Pins
 	var fpic = {
-		url: chartbase + "' . $fpin . '",
+		url: chartbase + "' . $this->_fpin . '",
 		size: null,
 		origin: null,
 		anchor: new google.maps.Point(' . $m_iconanchor_w . ', ' . $m_iconanchor_h . '),
@@ -168,7 +216,7 @@ class GoogleMap_Controller extends Action_Controller
 	};
 
 	var mpic = {
-		url: chartbase + "' . $mpin . '",
+		url: chartbase + "' . $this->_mpin . '",
 		size: null,
 		origin: null,
 		anchor: new google.maps.Point(' . $m_iconanchor_w . ', ' . $m_iconanchor_h . '),
@@ -181,11 +229,11 @@ class GoogleMap_Controller extends Action_Controller
 
 	// Various cluster pin styles
 	var styles = [[
-		{url: chartbase + "' . $cpin . '", width: ' . $c_iconscaled_w . ', height: ' . $c_iconscaled_h . '},
-		{url: chartbase + "' . $cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.3 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.2 : 1) . '},
-		{url: chartbase + "' . $cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.6 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.4 : 1) . '},
-		{url: chartbase + "' . $cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.9 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.6 : 1) . '},
-		{url: chartbase + "' . $cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 2.1 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.8 : 1) . '}
+		{url: chartbase + "' . $this->_cpin . '", width: ' . $c_iconscaled_w . ', height: ' . $c_iconscaled_h . '},
+		{url: chartbase + "' . $this->_cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.3 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.2 : 1) . '},
+		{url: chartbase + "' . $this->_cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.6 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.4 : 1) . '},
+		{url: chartbase + "' . $this->_cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.9 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.6 : 1) . '},
+		{url: chartbase + "' . $this->_cpin . '", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 2.1 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.8 : 1) . '}
 	],[
 		{url: codebase + "/images/m1.png", width: ' . $c_iconscaled_w . ', height: ' . $c_iconscaled_h . '},
 		{url: codebase + "/images/m2.png", width: ' . $c_iconscaled_w * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.2 : 1) . ', height: ' . $c_iconscaled_h * (!empty($modSettings['googleMap_ScalableCluster']) ? 1.2 : 1) . '},
@@ -203,7 +251,7 @@ class GoogleMap_Controller extends Action_Controller
 	]];
 
 	// Who does not like a good old fashioned cluster, cause thats what we have here
-	var style = ' . (is_int($cpin) ? $cpin : 0) . ';
+	var style = ' . (is_int($this->_cpin) ? $this->_cpin : 0) . ';
 	var mcOptions = {
 			gridSize: ' . (!empty($modSettings['googleMap_GridSize']) ? $modSettings['googleMap_GridSize'] : 2) . ',
 			maxZoom: 6,
@@ -576,7 +624,8 @@ class GoogleMap_Controller extends Action_Controller
 
 	/**
 	 * Creates google earth kml data
-	 * Generates a file for saving that can then be imported in to Google Earth
+	 *
+	 * - Generates a file for saving that can then be imported in to Google Earth
 	 */
 	public function action_kml()
 	{
@@ -819,58 +868,74 @@ class GoogleMap_Controller extends Action_Controller
 		$modSettings['googleMap_PinForeground'] = $this->gmm_validate_color('googleMap_PinForeground', '202020');
 
 		// What style of member and cluster pins have been chosen
-		$mpin = $this->gmm_validate_pin('googleMap_PinStyle', 'd_map_pin_icon');
-		$cpin = $this->gmm_validate_pin('googleMap_ClusterStyle', 'd_map_pin_icon');
+		$this->_npin = $this->gmm_validate_pin('googleMap_PinStyle', 'd_map_pin_icon');
+		$this->_cpin = $this->gmm_validate_pin('googleMap_ClusterStyle', 'd_map_pin_icon');
 
 		// Shall we add in shadows
-		$mshd = (isset($modSettings['googleMap_PinShadow']) && $modSettings['googleMap_PinShadow']) ? $mshd = '_withshadow' : $mshd = '';
-		$cshd = (isset($modSettings['googleMap_ClusterShadow']) && $modSettings['googleMap_ClusterShadow']) ? $cshd = '_withshadow' : $cshd = '';
+		$this->_nshd = (isset($modSettings['googleMap_PinShadow']) && $modSettings['googleMap_PinShadow']) ? $this->_nshd = '_withshadow' : $this->_nshd = '';
+		$this->_cshd = (isset($modSettings['googleMap_ClusterShadow']) && $modSettings['googleMap_ClusterShadow']) ? $this->_cshd = '_withshadow' : $this->_cshd = '';
 
 		// Set the member style, icon or text
-		if ($mpin == 'd_map_pin_icon')
-			$mchld = ((isset($modSettings['googleMap_PinIcon']) && trim($modSettings['googleMap_PinIcon']) != '') ? $modSettings['googleMap_PinIcon'] : 'info');
-		elseif ($mpin == 'd_map_pin_letter')
-			$mchld = (isset($modSettings['googleMap_PinText']) && trim($modSettings['googleMap_PinText']) != '') ? $modSettings['googleMap_PinText'] : '';
-		else
-		{
-			$mpin = 'd_map_pin_letter';
-			$mchld = '';
-		}
+		$this->_set_member_pin_style();
 
 		// Cluster pin style, icon, text or image
-		if ($cpin == 'd_map_pin_icon')
-			$cchld = ((isset($modSettings['googleMap_ClusterIcon']) && trim($modSettings['googleMap_ClusterIcon']) != '') ? $modSettings['googleMap_ClusterIcon'] : 'info');
-		elseif ($cpin == 'd_map_pin_letter')
-			$cchld = (isset($modSettings['googleMap_ClusterText']) && trim($modSettings['googleMap_ClusterText']) != '') ? $modSettings['googleMap_ClusterText'] : '';
-		elseif (is_int($cpin))
-			$cchld = '';
-		else
-		{
-			$cpin = 'd_map_pin_letter';
-			$cchld = '';
-		}
+		$this->_set_cluster_pin_style();
 
 		// And now for the colors
-		$mchld .= '|' . $modSettings['googleMap_PinBackground'] . '|' . $modSettings['googleMap_PinForeground'];
-		$cchld .= '|' . $modSettings['googleMap_ClusterBackground'] . '|' . $modSettings['googleMap_ClusterForeground'];
+		$this->_mchld .= '|' . $modSettings['googleMap_PinBackground'] . '|' . $modSettings['googleMap_PinForeground'];
+		$this->_cchld .= '|' . $modSettings['googleMap_ClusterBackground'] . '|' . $modSettings['googleMap_ClusterForeground'];
 
 		// Finaly build those beautiful pins
-		$modSettings['npin'] = '?chst=' . $mpin . $mshd . '&chld=' . $mchld;
-		$modSettings['cpin'] = is_int($cpin) ? $cpin : '?chst=' . $cpin . $cshd . '&chld=' . $cchld;
+		$modSettings['npin'] = '?chst=' . $this->_npin . $this->_nshd . '&chld=' . $this->_mchld;
+		$modSettings['cpin'] = is_int($this->_cpin) ? $this->_cpin : '?chst=' . $this->_cpin . $this->_cshd . '&chld=' . $this->_cchld;
 
 		// The gender pins follow the member pin format ....
-		if ($mpin == 'd_map_pin_icon')
+		if ($this->_npin == 'd_map_pin_icon')
 		{
-			$modSettings['fpin'] = '?chst=d_map_pin_icon' . $mshd . '&chld=WCfemale|FF0099';
-			$modSettings['mpin'] = '?chst=d_map_pin_icon' . $mshd . '&chld=WCmale|0066FF';
+			$modSettings['fpin'] = '?chst=d_map_pin_icon' . $this->_nshd . '&chld=WCfemale|FF0099';
+			$modSettings['mpin'] = '?chst=d_map_pin_icon' . $this->_nshd . '&chld=WCmale|0066FF';
 		}
 		else
 		{
-			$modSettings['fpin'] = '?chst=d_map_pin_letter' . $mshd . '&chld=|FF0099|' . $modSettings['googleMap_PinForeground'];
-			$modSettings['mpin'] = '?chst=d_map_pin_letter' . $mshd . '&chld=|0066FF|' . $modSettings['googleMap_PinForeground'];
+			$modSettings['fpin'] = '?chst=d_map_pin_letter' . $this->_nshd . '&chld=|FF0099|' . $modSettings['googleMap_PinForeground'];
+			$modSettings['mpin'] = '?chst=d_map_pin_letter' . $this->_nshd . '&chld=|0066FF|' . $modSettings['googleMap_PinForeground'];
 		}
 
 		return;
+	}
+
+	/**
+	 * Sets the cluster pin style
+	 */
+	private function _set_cluster_pin_style()
+	{
+		if ($this->_cpin === 'd_map_pin_icon')
+			$this->_cchld = ((isset($modSettings['googleMap_ClusterIcon']) && trim($modSettings['googleMap_ClusterIcon']) != '') ? $modSettings['googleMap_ClusterIcon'] : 'info');
+		elseif ($this->_cpin === 'd_map_pin_letter')
+			$this->_cchld = (isset($modSettings['googleMap_ClusterText']) && trim($modSettings['googleMap_ClusterText']) != '') ? $modSettings['googleMap_ClusterText'] : '';
+		elseif (is_int($this->_cpin))
+			$this->_cchld = '';
+		else
+		{
+			$this->_cpin = 'd_map_pin_letter';
+			$this->_cchld = '';
+		}
+	}
+
+	/**
+	 * Sets the normal pin style
+	 */
+	private function _set_member_pin_style()
+	{
+		if ($this->_npin === 'd_map_pin_icon')
+			$this->_mchld = ((isset($modSettings['googleMap_PinIcon']) && trim($modSettings['googleMap_PinIcon']) != '') ? $modSettings['googleMap_PinIcon'] : 'info');
+		elseif ($this->_npin === 'd_map_pin_letter')
+			$this->_mchld = (isset($modSettings['googleMap_PinText']) && trim($modSettings['googleMap_PinText']) != '') ? $modSettings['googleMap_PinText'] : '';
+		else
+		{
+			$this->_npin = 'd_map_pin_letter';
+			$this->_mchld = '';
+		}
 	}
 
 	/**
@@ -884,7 +949,7 @@ class GoogleMap_Controller extends Action_Controller
 		global $modSettings;
 
 		// no leading #'s please
-		if (substr($modSettings[$color], 0, 1) == '#')
+		if (substr($modSettings[$color], 0, 1) === '#')
 			$modSettings[$color] = substr($modSettings[$color], 1);
 
 		// is it a hex
