@@ -200,9 +200,9 @@ function iaa_googlemap(&$admin_areas)
 }
 
 /**
- * ifpf_googlemap()
+ * imm_googlemap()
  *
- * - Addons hook, integrate_forum_profile_fields, called from profile.subs.php
+ * - Addons hook, integrate_modify_modifications, called from profile.subs.php
  * - used to add new menu screens areas.
  *
  * @param mixed[] $sub_actions
@@ -346,7 +346,6 @@ function ModifyGoogleMapSettings()
 	}
 
 	// Continue on to the settings template
-
 	$context['post_url'] = $scripturl . '?action=admin;area=addonsettings;save;sa=googlemap';
 	$context['settings_title'] = $txt['googleMap'];
 	loadJavascriptFile('jscolor/jscolor.js');
