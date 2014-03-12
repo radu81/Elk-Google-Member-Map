@@ -1,4 +1,5 @@
 <?php
+
 $txt['googleMap'] = 'Member Map';
 $txt['googleMap_Reset'] = 'Reset Map';
 $txt['googleMap_GroupOfPins'] = "Group of Pins";
