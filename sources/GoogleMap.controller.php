@@ -77,12 +77,12 @@ class GoogleMap_Controller extends Action_Controller
 		if (empty($modSettings['googleMap_Enable']))
 			fatal_lang_error('feature_disabled', true);
 
-		// Are we allowed to view the map?
-		isAllowedTo('googleMap_view');
-
 		// Some things we will need
 		loadLanguage('GoogleMap');
 		require_once(SUBSDIR . '/GoogleMap.subs.php');
+
+		// Are we allowed to view the map?
+		isAllowedTo('googleMap_view');
 	}
 
 	/**
