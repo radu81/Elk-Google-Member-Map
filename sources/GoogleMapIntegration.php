@@ -57,7 +57,7 @@ function ilmd_googlemap(&$select_columns, &$select_tables, $set)
  * integrate_load_profile_fields
  *
  * - Called from profile.subs
- * - Used to add additonal fields to the profile createlist
+ * - Used to add additional fields to the profile createlist
  *
  * @param mixed[] $profile_fields
  */
@@ -105,7 +105,7 @@ function ilpf_googlemap(&$profile_fields)
  * Profile fields hook, integrate_' . $hook . '_profile_fields
  *
  * - Called from Profile.subs.php / setupProfileContext
- * - Used to add additonal sections to the profile context for a page load, here we
+ * - Used to add additional sections to the profile context for a page load, here we
  * add latitude to be displayed, its defined by integrate_load_profile_fields above
  *
  * @param mixed[] $fields
@@ -169,7 +169,7 @@ function ips_googlemap(&$profile_vars, &$post_errors, $memID)
  * ilp_googlemap()
  *
  * - Permissions hook, integrate_load_permissions, called from ManagePermissions.php
- * - used to add new permisssions
+ * - used to add new permissions
  *
  * @param mixed[] $permissionGroups
  * @param mixed[] $permissionList
@@ -253,9 +253,9 @@ function ModifyGoogleMapSettings()
 	$config_vars = array(
 		// Map - On or off?
 		array('check', 'googleMap_Enable', 'postinput' => $txt['googleMap_license']),
-		// Default Location/Zoom/Map Controls/etc
+		// Default Location/Zoom/Map Controls/etc.
 		array('title', 'googleMap_MapSettings'),
-		/* New menu structure, need to rethink what makes sense here, for now it will be under calendar in community
+		/* New menu structure, need to rethink what makes sense here, for now it will be under members in community
 		array('select', 'googleMap_ButtonLocation', array(
 				'home' => $txt['home'],
 				'help' => $txt['help'],
@@ -269,7 +269,7 @@ function ModifyGoogleMapSettings()
 		*/
 		array('float', 'googleMap_DefaultLat', 10, 'postinput' => $txt['googleMap_DefaultLat_info']),
 		array('float', 'googleMap_DefaultLong', 10, 'postinput' => $txt['googleMap_DefaultLong_info']),
-		array('int', 'googleMap_DefaultZoom', 'subtext' => $txt['googleMap_DefaultZoom_Info']),
+		array('int', 'googleMap_DefaultZoom', 'helptext' => $txt['googleMap_DefaultZoom_Info']),
 		array('select', 'googleMap_Type', array(
 				'ROADMAP' => $txt['googleMap_roadmap'],
 				'SATELLITE' => $txt['googleMap_satellite'],
@@ -281,7 +281,7 @@ function ModifyGoogleMapSettings()
 				'DEFAULT' => $txt['googleMap_defaultzoomcontrol'])
 		),
 		array('check', 'googleMap_EnableLegend'),
-		array('check', 'googleMap_KMLoutput_enable', 'subtext' => $txt['googleMap_KMLoutput_enable_info']),
+		array('check', 'googleMap_KMLoutput_enable', 'helptext' => $txt['googleMap_KMLoutput_enable_info']),
 		array('int', 'googleMap_PinNumber', 'subtext' => $txt['googleMap_PinNumber_info']),
 		array('select', 'googleMap_Sidebar', array(
 				'none' => $txt['googleMap_nosidebar'],
@@ -308,11 +308,11 @@ function ModifyGoogleMapSettings()
 		),
 		// Clustering Options
 		array('title', 'googleMap_ClusterpinSettings'),
-		array('check', 'googleMap_EnableClusterer', 'subtext' => $txt['googleMap_EnableClusterer_info']),
+		array('check', 'googleMap_EnableClusterer', 'helptext' => $txt['googleMap_EnableClusterer_info']),
 		array('int', 'googleMap_MinMarkerPerCluster'),
 		array('int', 'googleMap_MinMarkertoCluster'),
 		array('int', 'googleMap_GridSize'),
-		array('check', 'googleMap_ScalableCluster', 'subtext' => $txt['googleMap_ScalableCluster_info']),
+		array('check', 'googleMap_ScalableCluster', 'helptext' => $txt['googleMap_ScalableCluster_info']),
 		// Clustering Style
 		array('title', 'googleMap_ClusterpinStyle'),
 		array('text', 'googleMap_ClusterBackground', 6),
