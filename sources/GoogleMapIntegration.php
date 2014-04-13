@@ -202,7 +202,7 @@ function iaa_googlemap(&$admin_areas)
 /**
  * imm_googlemap()
  *
- * - Addons hook, integrate_modify_modifications, called from profile.subs.php
+ * - Addons hook, integrate_sa_modify_modifications, called from AddonSettings.controller
  * - used to add new menu screens areas.
  *
  * @param mixed[] $sub_actions
