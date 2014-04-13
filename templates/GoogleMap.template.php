@@ -20,9 +20,6 @@ function template_map()
 	{
 		echo '
 				<div id="gmm">
-					<h2 class="category_header">
-						<span class="align_left">', $txt['googleMap'], '</span>
-					</h2>
 					<div class="content">
 						<table>
 							<tr>';
@@ -33,9 +30,8 @@ function template_map()
 			echo '
 								<td class="sidebarleft">
 									<div class="centertext">
-										<em><strong>', $txt['googleMap_Pinned'], '</strong></em>
+										', $txt['googleMap_Pinned'], '
 									</div>
-									<hr />
 									<div id="googleSidebar"></div>';
 
 			if (!empty($modSettings['googleMap_BoldMember']))
@@ -51,6 +47,9 @@ function template_map()
 		// Our map
 		echo '
 								<td>
+									<h2 class="category_header">
+										<span class="align_left">', $txt['googleMap'], '</span>
+									</h2>
 									<div id="mapWindow">
 										<div id="map" style="height: 500px;"></div>
 										<div id="googleMapReset" onclick="resetMap(); return false;" title="'. $txt['googleMap_Reset'] . '"></div>
@@ -72,10 +71,9 @@ function template_map()
 		{
 			echo '
 								<td class="sidebarright">
-									<div class="centertext">
-										<em><strong>', $txt['googleMap_Pinned'], '</strong></em>
-									</div>
-									<hr />
+									<h2 class="category_header">
+										', $txt['googleMap_Pinned'], '
+									</h2>
 									<div id="googleSidebar"></div>';
 
 			if (!empty($modSettings['googleMap_BoldMember']))

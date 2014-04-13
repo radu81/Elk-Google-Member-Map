@@ -38,12 +38,12 @@
 }
 
 .sidebarleft {
-	padding-left: 15px;
+	padding-right: 5px;
 	width: 15em;
 }
 
 .sidebarright {
-	padding-right: 15px;
+	padding-left: 5px;
 	width: 15em;
 }
 
@@ -60,12 +60,15 @@
 
 #googleSidebar
 {
-	font-size: small;
 	margin: 0;
 	text-align: left;
 	overflow: auto;
-	height: 460px;
+	height: 514px;
 	white-space: nowrap;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #ccc #ccc #999 #ccc;
+	padding-left: 2px;
 }
 
 #googleMap_Legend
