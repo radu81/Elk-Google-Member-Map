@@ -20,10 +20,10 @@
 		<require-file name="sources/GoogleMapIntegration.php" destination="SOURCEDIR">Our integration Functions</require-file>
 		<require-file name="sources/GoogleMap.controller.php" destination="CONTROLLERDIR">The addon controller</require-file>
 		<require-file name="sources/GoogleMap.subs.php" destination="SUBSDIR">The addon helpers</require-file>
-		<require-file name="scripts/markerclusterer_packed.js" destination="$themedir/scripts">Javascript to enable the cluster functions</require-file>
+		<require-file name="scripts/markerclusterer_packed.js" destination="THEMEDIR/scripts">Javascript to enable the cluster functions</require-file>
 		<require-dir name="scripts/jscolor" destination="BOARDDIR/themes/default/scripts">Javascript to enable color selection</require-dir>
-		<require-file name="css/GoogleMap.css" destination="$themedir/css">Style Sheets</require-file>
-		<require-file name="templates/GoogleMap.template.php" destination="$themedir">The template for viewing the member map</require-file>
+		<require-file name="css/GoogleMap.css" destination="THEMEDIR/css">Style Sheets</require-file>
+		<require-file name="templates/GoogleMap.template.php" destination="THEMEDIR">The template for viewing the member map</require-file>
 		<require-file name="languages/GoogleMap.english.php" destination="LANGUAGEDIR/english">The language strings</require-file>
 		<require-file name="google_earth_feed.gif" destination="$imagesdir" />
 		<database type="file">add_settings.php</database>
@@ -55,10 +55,10 @@
 		<remove-file name="SOURCEDIR/GoogleMapIntegration.php" />
 		<remove-file name="CONTROLLERDIR/GoogleMap.controller.php" />
 		<remove-file name="SUBSDIR/GoogleMap.subs.php" destination="SUBSDIR" />
-		<remove-file name="$themedir/scripts/markerclusterer_packed.js" />
+		<remove-file name="THEMEDIR/scripts/markerclusterer_packed.js" />
 		<remove-dir name="BOARDDIR/themes/default/scripts/jscolor" />
-		<remove-file name="$themedir/css/GoogleMap.css" />
-		<remove-file name="$themedir/GoogleMap.template.php" />
+		<remove-file name="THEMEDIR/css/GoogleMap.css" />
+		<remove-file name="THEMEDIR/GoogleMap.template.php" />
 		<remove-file name="LANGUAGEDIR/english/GoogleMap.english.php" />
 		<remove-file name="$imagesdir/google_earth_feed.gif" />
 		<modification reverse="true">language.xml</modification>
