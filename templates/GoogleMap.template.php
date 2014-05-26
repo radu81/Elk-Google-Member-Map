@@ -171,7 +171,7 @@ function template_map()
 
 		// Load the scripts so we can render the map
 		echo '
-				<script src="', $scripturl, '?action=googlemap;sa=js;count='. $context['total_pins'] .'"></script>';
+				<script src="', $scripturl, '?action=GoogleMap;sa=js;count='. $context['total_pins'] .'"></script>';
 	}
 }
 

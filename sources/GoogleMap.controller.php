@@ -136,7 +136,7 @@ class GoogleMap_Controller extends Action_Controller
 		// Clean and restart the buffer so we only return JS back to the template
 		ob_end_clean();
 		if (!empty($modSettings['enableCompressedOutput']))
-			@ob_start('ob_gzhandler');
+			ob_start('ob_gzhandler');
 		else
 			ob_start();
 
@@ -502,6 +502,7 @@ class GoogleMap_Controller extends Action_Controller
 		$last_week = time() - (7 * 24 * 60 * 60);
 		echo '<?xml version="1.0" encoding="UTF-8"?', '>
 		<markers>';
+		
 		if (isset($memberContext))
 		{
 			// To prevent the avatar being outside the popup info window we set a max div height
