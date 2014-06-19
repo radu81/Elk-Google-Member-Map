@@ -15,7 +15,7 @@
  * @version 1.0
  */
 ]]></license>
-	<install for="1.0 Beta - 1.0.99">
+	<install for="1.0 RC1 - 1.0.99">
 		<readme type="file" parsebbc="true">install-readme.txt</readme>
 		<require-file name="sources/GoogleMapIntegration.php" destination="SOURCEDIR">Our integration Functions</require-file>
 		<require-file name="sources/GoogleMap.controller.php" destination="CONTROLLERDIR">The addon controller</require-file>
@@ -42,7 +42,7 @@
 		<redirect url="index.php?action=admin;area=addonsettings;sa=googlemap" timeout="5000">redirect.txt</redirect>
 	</install>
 
-	<uninstall for="1.0 Beta - 1.0.99">
+	<uninstall for="1.0 RC1 - 1.0.99">
 		<readme type="file" parsebbc="true">uninstall-readme.txt</readme>
 		<hook reverse="true" hook="integrate_admin_areas" file="SOURCEDIR/GoogleMapIntegration.php" function="iaa_googlemap" />
 		<hook reverse="true" hook="integrate_sa_modify_modifications" file="SOURCEDIR/GoogleMapIntegration.php" function="imm_googlemap" />
