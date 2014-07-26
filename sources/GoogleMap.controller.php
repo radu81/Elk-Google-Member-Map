@@ -272,7 +272,8 @@ class GoogleMap_Controller extends Action_Controller
 		}
 		else
 		{
-			if (window.ActiveXObject) {
+			if (window.ActiveXObject)
+			{
 				try {
 					xhr = new ActiveXObject("Microsoft.XMLHTTP");
 				} catch (e) { }
@@ -422,7 +423,7 @@ class GoogleMap_Controller extends Action_Controller
 			if (infowindow)
 				infowindow.close();
 
-			infowindow = new google.maps.InfoWindow({content: html, maxWidth:280});
+			infowindow = new google.maps.InfoWindow({content: html, maxWidth: 280});
 			infowindow.open(map, marker);
 		});
 
@@ -434,7 +435,9 @@ class GoogleMap_Controller extends Action_Controller
 		// Add a line to the sidebar html';
 		if ($modSettings['googleMap_Sidebar'] !== 'none')
 			echo '
-		sidebar_html += \'<a href="javascript:finduser(\' + i + \')">\' + name + \'</a><br /> \';
+		sidebar_html += \'<a href="javascript:finduser(\' + i + \')">\' + name + \'</a><br /> \';';
+
+	echo '
 	}
 
 	// Picks up the sidebar click and opens the corresponding info window
@@ -468,9 +471,10 @@ class GoogleMap_Controller extends Action_Controller
 
 	/**
 	 * Creates xml data for use on a map
-	 * Builds the pin info window content
-	 * Builds the map sidebar layout
-	 * Called from the googlemap JS initialize function via ajax (?action=GoogleMap;sa=xml)
+	 *
+	 * - Builds the pin info window content
+	 * - Builds the map sidebar layout
+	 * - Called from the googlemap JS initialize function via ajax (?action=GoogleMap;sa=xml)
 	 */
 	public function action_xml()
 	{
@@ -502,7 +506,7 @@ class GoogleMap_Controller extends Action_Controller
 		$last_week = time() - (7 * 24 * 60 * 60);
 		echo '<?xml version="1.0" encoding="UTF-8"?', '>
 		<markers>';
-		
+
 		if (isset($memberContext))
 		{
 			// To prevent the avatar being outside the popup info window we set a max div height
