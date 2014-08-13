@@ -12,7 +12,7 @@
  *
  */
 
-// Are we calling this directly the lets just say no
+// Are we calling this directly then lets just say no
 if (!defined('ELK'))
 	die('No access...');
 
