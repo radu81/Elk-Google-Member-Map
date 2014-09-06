@@ -1,5 +1,6 @@
 <?php
 
+// Template strings
 $txt['googleMap'] = 'Member Map';
 $txt['googleMap_Reset'] = 'Reset Map';
 $txt['googleMap_GroupOfPins'] = "Group of Pins";
@@ -21,6 +22,7 @@ $txt['googleMap_AddPinNote'] = '<b>Click here to add or edit your pin location o
 $txt['googleMap_PleaseClick'] = 'Click to place your pin on the map or click on your pin to remove it.';
 $txt['googleMap_Disclaimer'] = '<br />Place your pin as close to your location as you feel comfortable.<br />Use the search function on the map to quickly move to a location (city, zip code, etc) then click on the map to set your pin.<br /><br />When you are done click on "Change Profile" to save your location.';
 
+// Permissions / errors
 $txt['cannot_googleMap_view'] = 'Sorry, you are not allowed to view the Member Map.';
 $txt['permissionname_googleMap_view'] = 'View Member Map';
 $txt['permissionhelp_googleMap_view'] = 'Allow the people to view the Member Map.  If not set, the people will not see the map.';
@@ -30,6 +32,7 @@ $txt['permissionhelp_googleMap_place'] = 'Allow the people place their pin the M
 $txt['googleMap_xmlerror'] = 'Error making the ajax request';
 $txt['googleMap_error'] = 'Unable to read the map pin data, result was';
 
+// Map addon settings
 $txt['googleMap_license'] = 'The Google JavaScript Maps API V3 is a free service, available for any web site that is free to consumers. By enabling and using this SMF modification you are acknowledging and agreeing to the Google<a href="http://code.google.com/apis/maps/terms.html"> terms of use</a>';
 
 $txt['googleMap_MapSettings'] = 'General Map Settings';
@@ -98,6 +101,7 @@ $txt['googleMap_talkpin'] = 'Talk icon';
 $txt['googleMap_ScalableCluster'] = 'Allow Clusters with more pins to grow in size';
 $txt['googleMap_ScalableCluster_info'] = 'Allows cluster pins to grow dynamically in size depending on how many pins they contain';
 
+// Pin Names
 $txt['academy'] = 'academy';
 $txt['activities'] = 'activities';
 $txt['airport'] = 'airport';
@@ -173,3 +177,7 @@ $txt['wc-female'] = 'female';
 $txt['wc-male'] = 'male';
 $txt['wc'] = 'unisex';
 $txt['wheelchair'] = 'wheelchair';
+
+// Who strings
+$txt['whoall_googlemap'] = 'Viewing the <a href="' . $scripturl . '?action=googlemap">Member Map</a>.';
+$txt['whoall_kml'] = 'Viewing the Google Earth Feed.';

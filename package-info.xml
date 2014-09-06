@@ -4,7 +4,7 @@
 	<id>Spuds:gmmMod</id>
 	<name>Google Member Map</name>
 	<version>1.0</version>
-	<type>modification</type>
+	<type>addon</type>
 	<license><![CDATA[
 /**
  * Google Member Map
@@ -15,8 +15,10 @@
  * @version 1.0
  */
 ]]></license>
-	<install for="1.0 RC1 - 1.0.99">
+	<install for="1.0 - 1.0.99">
 		<readme type="file" parsebbc="true">install-readme.txt</readme>
+		<license type="inline">This ElkArte addon is released under a MPL V1.1 license, a copy of it with its provisions is included with the package.</license>
+
 		<require-file name="sources/GoogleMapIntegration.php" destination="SOURCEDIR">Our integration Functions</require-file>
 		<require-file name="sources/GoogleMap.controller.php" destination="CONTROLLERDIR">The addon controller</require-file>
 		<require-file name="sources/GoogleMap.subs.php" destination="SUBSDIR">The addon helpers</require-file>
@@ -27,7 +29,7 @@
 		<require-file name="languages/GoogleMap.english.php" destination="LANGUAGEDIR/english">The language strings</require-file>
 		<require-file name="google_earth_feed.gif" destination="IMAGESDIR" />
 		<database type="file">add_settings.php</database>
-		<modification>language.xml</modification>
+
 		<hook hook="integrate_admin_areas" file="SOURCEDIR/GoogleMapIntegration.php" function="iaa_googlemap" />
 		<hook hook="integrate_sa_modify_modifications" file="SOURCEDIR/GoogleMapIntegration.php" function="imm_googlemap" />
 		<hook hook="integrate_menu_buttons" file="SOURCEDIR/GoogleMapIntegration.php" function="imb_googlemap" />
@@ -38,11 +40,13 @@
 		<hook hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
 		<hook hook="integrate_forum_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ifpf_googlemap" />
 		<hook hook="integrate_profile_summary" file="SOURCEDIR/GoogleMapIntegration.php" function="iprofs_googlemap" />
+		<hook hook="integrate_whos_online" file="SOURCEDIR/GoogleMapIntegration.php" function="gmm_integrate_whos_online"/>
+
 		<credits url="www.elkarte.net" license="MPL 1.1" copyright="spuds">Google Member Map</credits>
 		<redirect url="index.php?action=admin;area=addonsettings;sa=googlemap" timeout="5000">redirect.txt</redirect>
 	</install>
 
-	<uninstall for="1.0 RC1 - 1.0.99">
+	<uninstall for="1.0 - 1.0.99">
 		<readme type="file" parsebbc="true">uninstall-readme.txt</readme>
 		<hook reverse="true" hook="integrate_admin_areas" file="SOURCEDIR/GoogleMapIntegration.php" function="iaa_googlemap" />
 		<hook reverse="true" hook="integrate_sa_modify_modifications" file="SOURCEDIR/GoogleMapIntegration.php" function="imm_googlemap" />
@@ -54,6 +58,8 @@
 		<hook reverse="true" hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
 		<hook reverse="true" hook="integrate_forum_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ifpf_googlemap" />
 		<hook reverse="true" hook="integrate_profile_summary" file="SOURCEDIR/GoogleMapIntegration.php" function="iprofs_googlemap" />
+		<hook reverse="true" hook="integrate_whos_online" file="SOURCEDIR/GoogleMapIntegration.php" function="gmm_integrate_whos_online"/>
+
 		<remove-file name="SOURCEDIR/GoogleMapIntegration.php" />
 		<remove-file name="CONTROLLERDIR/GoogleMap.controller.php" />
 		<remove-file name="SUBSDIR/GoogleMap.subs.php" destination="SUBSDIR" />
@@ -63,7 +69,7 @@
 		<remove-file name="THEMEDIR/GoogleMap.template.php" />
 		<remove-file name="LANGUAGEDIR/english/GoogleMap.english.php" />
 		<remove-file name="IMAGESDIR/google_earth_feed.gif" />
-		<modification reverse="true">language.xml</modification>
+
 		<database type="file">remove_settings.php</database>
 	</uninstall>
 </package-info>

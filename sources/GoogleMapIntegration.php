@@ -451,3 +451,20 @@ function gmm_pinArray()
 		'wheelchair' => $txt['wheelchair'],
 	);
 }
+
+/**
+ * Whos online hook, integrate_whos_online, called from who.subs
+ * translates custom actions to allow show what area a user is in
+ *
+ * @param string $actions
+ */
+function gmm_integrate_whos_online($actions)
+{
+	global $modSettings, $txt;
+
+	if (isset($actions['action']) && $actions['action'] === 'GoogleMap' && !empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'))
+	{
+		loadlanguage('GoogleMap');
+		return (isset($actions['sa']) && $actions['sa'] = 'kml') ? $txt['whoall_kml'] : $txt['whoall_googlemap'];
+	}
+}
