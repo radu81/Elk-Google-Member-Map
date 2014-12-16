@@ -179,5 +179,5 @@ $txt['wc'] = 'unisex';
 $txt['wheelchair'] = 'wheelchair';
 
 // Who strings
-$txt['whoall_googlemap'] = 'Viewing the <a href="' . $scripturl . '?action=googlemap">Member Map</a>.';
+$txt['whoall_googlemap'] = 'Viewing the <a href="' . $scripturl . '?action=GoogleMap">Member Map</a>.';
 $txt['whoall_kml'] = 'Viewing the Google Earth Feed.';
