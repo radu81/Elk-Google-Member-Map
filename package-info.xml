@@ -40,7 +40,8 @@
 		<hook hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
 		<hook hook="integrate_forum_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ifpf_googlemap" />
 		<hook hook="integrate_profile_summary" file="SOURCEDIR/GoogleMapIntegration.php" function="iprofs_googlemap" />
-		<hook hook="integrate_whos_online" file="SOURCEDIR/GoogleMapIntegration.php" function="gmm_integrate_whos_online"/>
+		<hook hook="integrate_whos_online" file="SOURCEDIR/GoogleMapIntegration.php" function="gmm_integrate_whos_online" />
+		<hook hook="integrate_quickhelp" file="SOURCEDIR/GoogleMapIntegration.php" function="ilqh_googlemap" />
 
 		<credits url="www.elkarte.net" license="MPL 1.1" copyright="spuds">Google Member Map</credits>
 		<redirect url="index.php?action=admin;area=addonsettings;sa=googlemap" timeout="5000">redirect.txt</redirect>
@@ -58,7 +59,8 @@
 		<hook reverse="true" hook="integrate_profile_save" file="SOURCEDIR/GoogleMapIntegration.php" function="ips_googlemap" />
 		<hook reverse="true" hook="integrate_forum_profile_fields" file="SOURCEDIR/GoogleMapIntegration.php" function="ifpf_googlemap" />
 		<hook reverse="true" hook="integrate_profile_summary" file="SOURCEDIR/GoogleMapIntegration.php" function="iprofs_googlemap" />
-		<hook reverse="true" hook="integrate_whos_online" file="SOURCEDIR/GoogleMapIntegration.php" function="gmm_integrate_whos_online"/>
+		<hook reverse="true" hook="integrate_whos_online" file="SOURCEDIR/GoogleMapIntegration.php" function="gmm_integrate_whos_online" />
+		<hook reverse="true" hook="integrate_quickhelp" file="SOURCEDIR/GoogleMapIntegration.php" function="ilqh_googlemap" />
 
 		<remove-file name="SOURCEDIR/GoogleMapIntegration.php" />
 		<remove-file name="CONTROLLERDIR/GoogleMap.controller.php" />
