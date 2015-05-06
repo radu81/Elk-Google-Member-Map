@@ -184,6 +184,16 @@ function ilp_googlemap(&$permissionGroups, &$permissionList, &$leftPermissionGro
 }
 
 /**
+ * Help hook, integrate_quickhelp, called from help.controller.php
+ * Used to add in additional help languages for use in the admin quickhelp
+ */
+function ilqh_googlemap()
+{
+	// Load the GoogleMap Help file.
+	loadLanguage('GoogleMap');
+}
+
+/**
  * iaa_googlemap()
  *
  * - Admin Hook, integrate_admin_areas, called from Admin.php
