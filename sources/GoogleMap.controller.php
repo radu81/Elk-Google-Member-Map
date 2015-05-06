@@ -423,7 +423,7 @@ class GoogleMap_Controller extends Action_Controller
 			if (infowindow)
 				infowindow.close();
 
-			infowindow = new google.maps.InfoWindow({content: html, maxWidth: 280});
+			infowindow = new google.maps.InfoWindow({content: html});
 			infowindow.open(map, marker);
 		});
 
@@ -447,12 +447,12 @@ class GoogleMap_Controller extends Action_Controller
 
 		var marker = gmarkers[i]["position"];
 
-		infowindow = new google.maps.InfoWindow({content: htmls[i], maxWidth:280});
+		infowindow = new google.maps.InfoWindow({content: htmls[i]});
 		infowindow.setPosition(marker);
 		infowindow.open(map);
 	}
 
-	// Resets the map to the inital zoom/center values
+	// Resets the map to the initial zoom/center values
 	function resetMap() {
 		// Close any info windows we may have opened
 		if (infowindow)
@@ -531,7 +531,7 @@ class GoogleMap_Controller extends Action_Controller
 					// avatar?
 					if (!empty($settings['show_user_images']) && empty($options['show_no_avatars']) && !empty($marker['avatar']['image']))
 						$datablurb .= '
-					<div class="gmm_avatar" style="height:' . $div_height . 'px">' . $marker['avatar']['image'] . '<br /></div>';
+				<div class="gmm_avatar" style="max-height:' . $div_height . 'px">' . $marker['avatar']['image'] . '</div>';
 
 					// user info section
 					$datablurb .= '
@@ -550,7 +550,7 @@ class GoogleMap_Controller extends Action_Controller
 
 					// groups icons
 					$datablurb .= '
-						<li class="iocns">' . $marker['group_icons'] . '</li>';
+						<li class="icons">' . $marker['group_icons'] . '</li>';
 
 					// show the title, if they have one
 					if (!empty($marker['title']) && !$user_info['is_guest'])
@@ -582,9 +582,11 @@ class GoogleMap_Controller extends Action_Controller
 						$datablurb .= '
 								<li>
 									<a href="' . $scripturl . '?action=pm;sa=send;u=' . $marker['id'] . '">';
-						$datablurb .= $settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.png" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']);
+						$datablurb .= $settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/im_' . ($marker['online']['is_online'] ? 'on' : 'off') . '.png" alt="' . $txt['send_message'] . '" title="' . $txt['send_message'] . '" />' : ($marker['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']);
 						$datablurb .= '
-								</li>
+								</li>';
+
+						$datablurb .= '
 							</ul>
 						</li>';
 					}
