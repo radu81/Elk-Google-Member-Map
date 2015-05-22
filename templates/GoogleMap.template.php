@@ -34,12 +34,10 @@ function template_map()
 									</div>
 									<div id="googleSidebar"></div>';
 
-			if (!empty($modSettings['googleMap_BoldMember']))
-				echo '
-									<div class="centertext googleMap_Legend">
-										<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] . '
+			echo '
+									<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
+										<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
 									</div>';
-
 			echo '
 								</td>';
 		}
@@ -76,10 +74,9 @@ function template_map()
 									</h2>
 									<div id="googleSidebar"></div>';
 
-			if (!empty($modSettings['googleMap_BoldMember']))
-				echo '
-									<div class="centertext googleMap_Legend">
-										<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] . '
+			echo '
+									<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
+										<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
 									</div>';
 
 			echo '
