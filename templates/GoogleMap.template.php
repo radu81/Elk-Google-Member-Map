@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0
+ * @version 1.0.1
  *
  */
 
@@ -100,17 +100,17 @@ function template_map()
 
 			if (empty($modSettings['googleMap_PinGender']))
 				echo '
-								<td><img src="http://chart.apis.google.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_MemberPin'], '</td>';
+								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_MemberPin'], '</td>';
 			else
 				echo '
-								<td><img src="http://chart.apis.google.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_AndrogynyPin'], '</td>
-								<td><img src="http://chart.apis.google.com/chart', htmlspecialchars($modSettings['mpin']), '" alt="" />', $txt['googleMap_MalePin'], '</td>
-								<td><img src="http://chart.apis.google.com/chart', htmlspecialchars($modSettings['fpin']), '" alt="" />', $txt['googleMap_FemalePin'], '</td>';
+								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_AndrogynyPin'], '</td>
+								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['mpin']), '" alt="" />', $txt['googleMap_MalePin'], '</td>
+								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['fpin']), '" alt="" />', $txt['googleMap_FemalePin'], '</td>';
 
 			if (!empty($modSettings['googleMap_EnableClusterer']) && ($context['total_pins'] > (!empty($modSettings['googleMap_MinMarkertoCluster']) ? $modSettings['googleMap_MinMarkertoCluster'] : 0)))
 			{
-				$codebase = 'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer';
-				$chartbase = "http://chart.apis.google.com/chart";
+				$codebase = '//google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer';
+				$chartbase = "//chart.googleapis.com/chart";
 
 				switch ($modSettings['cpin'])
 				{
@@ -187,7 +187,7 @@ function template_profile_googlemap_modify()
 			<br /><span class="smalltext">'. $txt['googleMap_PleaseClick'].'<br />' . $txt['googleMap_Disclaimer'] . '</span>
 		</dt>
 		<dd>
-		<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+		<script src="//maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
 		<input id="searchTextField" type="text" size="50">
         <div id="map_canvas"></div>
         <input type="hidden" name="latitude" id="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
@@ -306,7 +306,7 @@ function template_profile_block_gmm()
 			', ($context['user']['is_owner']) ? '<a href="' . $scripturl . '?action=profile;area=forumprofile;u=' . $context['member']['id'] . '">' . $title . '</a>' : $title, '
 		</h3>
 		<div class="profileblock">
-			<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+			<script src="//maps.google.com/maps/api/js?sensor=false"></script>
 			<div id="map_canvas" style="width: 100%; height: 300px; color: #000000;"></div>
 				<input type="hidden" name="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
 				<input type="hidden" name="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />

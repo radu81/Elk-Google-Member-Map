@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0
+ * @version 1.0.1
  *
  */
 
@@ -116,7 +116,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Load in our javascript
 		loadJavascriptFile('markerclusterer_packed.js');
-		loadJavascriptFile('http://maps.google.com/maps/api/js?sensor=false', array(), 'sensor.js');
+		loadJavascriptFile('//maps.google.com/maps/api/js?sensor=false', array(), 'sensor.js');
 
 		// Show the map
 		$context['place_pin'] = allowedTo('googleMap_place');
@@ -191,8 +191,8 @@ class GoogleMap_Controller extends Action_Controller
 		infowindow = null;
 
 	// Icon locations
-	var codebase = "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer",
-		chartbase = "http://chart.apis.google.com/chart";
+	var codebase = "//google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer",
+		chartbase = "//chart.googleapis.com/chart";
 
 	// Our normal pin to show on the map
 	var npic = {
