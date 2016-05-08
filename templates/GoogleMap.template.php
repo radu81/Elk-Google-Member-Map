@@ -19,84 +19,73 @@ function template_map()
 	if (!empty($modSettings['googleMap_Enable']))
 	{
 		echo '
-				<div id="gmm">
-					<div class="content">
-						<table>
-							<tr>';
+				<div id="gmm">';
 
 		// Show a left sidebar?
 		if ((!empty($modSettings['googleMap_Sidebar'])) && $modSettings['googleMap_Sidebar'] == 'left')
 		{
 			echo '
-								<td class="sidebarleft">
-									<div class="centertext">
-										', $txt['googleMap_Pinned'], '
-									</div>
-									<div id="googleSidebar"></div>';
-
-			echo '
-									<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
-										<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
-									</div>';
-			echo '
-								</td>';
+					<div class="sidebarleft">
+						<div class="centertext">
+							', $txt['googleMap_Pinned'], '
+						</div>
+						<div id="googleSidebar"></div>
+						<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
+							<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
+						</div>
+					</div>';
 		}
 
 		// Our map
 		echo '
-								<td>
-									<h2 class="category_header">
-										<span class="align_left">', $txt['googleMap'], '</span>
-									</h2>
-									<div id="mapWindow">
-										<div id="map" style="height: 500px;"></div>
-										<div id="googleMapReset" onclick="resetMap(); return false;" title="'. $txt['googleMap_Reset'] . '"></div>
-									</div>';
+					<div class="mappanel">
+						<h2 class="category_header">
+							<span class="align_left">', $txt['googleMap'], '</span>
+						</h2>
+						<div id="mapWindow">
+							<div id="map" style="height: 500px;"></div>
+							<div id="googleMapReset" onclick="resetMap(); return false;" title="'. $txt['googleMap_Reset'] . '"></div>
+						</div>';
 
 		// Set the text for the number of pins we are, or can, show
 		if ($context['total_pins'] >= $modSettings['googleMap_PinNumber'] && $modSettings['googleMap_PinNumber'] != 0)
 			echo
-									sprintf($txt['googleMap_Thereare'], '<strong>(' . $modSettings['googleMap_PinNumber'] . '+)</strong>');
+						sprintf($txt['googleMap_Thereare'], '<strong>(' . $modSettings['googleMap_PinNumber'] . '+)</strong>');
 		else
 			echo
-									sprintf($txt['googleMap_Thereare'], '<strong>(' . $context['total_pins'] . ')</strong>');
+						sprintf($txt['googleMap_Thereare'], '<strong>(' . $context['total_pins'] . ')</strong>');
 
 		echo '
-								</td>';
+					</div>';
 
 		// Show a right sidebar?
 		if (!empty($modSettings['googleMap_Sidebar']) && $modSettings['googleMap_Sidebar'] == 'right')
 		{
 			echo '
-								<td class="sidebarright">
-									<h2 class="category_header">
-										', $txt['googleMap_Pinned'], '
-									</h2>
-									<div id="googleSidebar"></div>';
-
-			echo '
-									<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
-										<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
-									</div>';
-
-			echo '
-								</td>';
+					<div class="sidebarright">
+						<h2 class="category_header">
+							', $txt['googleMap_Pinned'], '
+						</h2>
+						<div id="googleSidebar"></div>
+						<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
+							<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
+						</div>
+					</div>';
 		}
 
-		// close this table
 		echo '
-							</tr>
-						</table>';
+				</div>';
 
 		// Show a legend?
 		if (!empty($modSettings['googleMap_EnableLegend']))
 		{
 			echo '
-						<h2 class="category_header">
-							<span class="align_left">', $txt['googleMap_Legend'], '</span>
-						</h2>
-						<table id="googleMap_Legend" class="centertext ">
-							<tr>';
+				<div class="clear">
+					<h2 class="category_header">
+						<span class="align_left">', $txt['googleMap_Legend'], '</span>
+					</h2>
+					<table id="googleMap_Legend" class="centertext ">
+						<tr>';
 
 			if (empty($modSettings['googleMap_PinGender']))
 				echo '
@@ -137,7 +126,7 @@ function template_map()
 		}
 
 		echo '
-							<table class="centertext">';
+						<table class="gmm_centertext">';
 
 		// If they can place a pin, give them a hint
 		if ($context['place_pin'])
@@ -163,12 +152,11 @@ function template_map()
 
 		// Close it up jim
 		echo '
-					</div>
-				</div>';
+					</div>';
 
 		// Load the scripts so we can render the map
 		echo '
-				<script src="', $scripturl, '?action=GoogleMap;sa=js;count='. $context['total_pins'] .'"></script>';
+				<script src="', $scripturl, '?action=GoogleMap;sa=js;count=', $context['total_pins'], '"></script>';
 	}
 }
 

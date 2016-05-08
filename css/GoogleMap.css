@@ -1,18 +1,18 @@
 /* Google Maps */
 .googleMap {
-	font-size: small;
-	border: 0;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
 	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 0;
+	font-size: small;
 }
 
 .gmm_poster {
-    vertical-align: top;
-    word-break: break-all;
-    word-wrap: break-word;
 	width: 240px;
+	vertical-align: top;
+	word-wrap: break-word;
+	word-break: break-all;
 }
 
 .gmm_avatar {
@@ -21,92 +21,106 @@
 }
 
 #mapWindow {
+	position: relative;
+	margin: auto;
 	padding: 6px;
 	border-width: 1px;
 	border-style: solid;
-	border-color: #ccc #ccc #999 #ccc;
+	border-color: #CCCCCC #CCCCCC #999999 #CCCCCC;
 	-webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
 	-moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
 	box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
-	color: #000;
-	margin: auto;
-	position: relative;
+	color: #000000;
 }
 
-#gmm table {
-	width: 100%;
+.sidebarleft, .sidebarright {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 20%;
 }
 
 .sidebarleft {
+	float: left;
 	padding-right: 5px;
-	width: 15em;
 }
 
 .sidebarright {
+	float: right;
 	padding-left: 5px;
-	width: 15em;
 }
 
-.googleMap ul ul
-{
+.mappanel {
+	float: left;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 80%;
+}
+
+.googleMap ul ul {
 	padding: 3px 0 0 0;
 }
 
-.googleMap ul ul li
-{
+.googleMap ul ul li {
 	display: inline;
 }
 
-#googleSidebar
-{
+#googleSidebar {
+	overflow: auto;
 	margin: 0;
-	text-align: left;
-	overflow: auto;
-	height: 514px;
-	white-space: nowrap;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ccc #ccc #999 #ccc;
 	padding-left: 2px;
+	max-height: 514px;
+	border: 1px solid #CCCCCC;
+	border-bottom-color: #999999;
+	text-align: left;
+	white-space: nowrap;
 }
 
-#googleMap_Legend
-{
-	font-size: small;
-	font-family: tahoma, sans-serif;
-	margin: 0 auto;
+#googleMap_Legend {
 	overflow: auto;
-	width: 50% !important;
+	margin: 0 auto;
 }
 
-#googleMapReset
-{
-    border: 1px dotted #EEE;
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    display: block;
-    top: 36px;
-    left: 36px;
-    cursor: pointer;
-    background-color: #FFF;
+#googleMapReset {
+	position: absolute;
+	top: 36px;
+	left: 36px;
+	display: block;
+	width: 16px;
+	height: 16px;
+	border: 1px dotted #EEEEEE;
+	background-color: #FFFFFF;
+	cursor: pointer;
 }
 
 #map_canvas {
+	margin: 0 auto;
 	width: 100%;
 	height: 350px;
 	color: #000000;
-	margin: 0 auto;
 }
 
 #map_canvas input, textarea {
-	background-color: #FFF;
+	background-color: #FFFFFF;
+}
+
+.gmm_centertext {
+	width: 100%;
+	text-align: center;
 }
 
 .pac-container {
-	background-color: #FFF;
+	background-color: #FFFFFF;
 }
 
 .pac-item {
-	color: #000;
+	color: #000000;
+}
+
+@media screen and (max-width: 50em) {
+	.sidebarleft, .sidebarright, .mappanel {
+		float: none;
+		width: 100%;
+	}
 }
