@@ -98,7 +98,7 @@ function template_map()
 
 			if (!empty($modSettings['googleMap_EnableClusterer']) && ($context['total_pins'] > (!empty($modSettings['googleMap_MinMarkertoCluster']) ? $modSettings['googleMap_MinMarkertoCluster'] : 0)))
 			{
-				$codebase = '//google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer';
+				$codebase = '//raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages';
 				$chartbase = "//chart.googleapis.com/chart";
 
 				switch ($modSettings['cpin'])
@@ -175,7 +175,7 @@ function template_profile_googlemap_modify()
 			<br /><span class="smalltext">'. $txt['googleMap_PleaseClick'].'<br />' . $txt['googleMap_Disclaimer'] . '</span>
 		</dt>
 		<dd>
-		<script src="//maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+		<script src="//maps.google.com/maps/api/js?libraries=places"></script>
 		<input id="searchTextField" type="text" size="50">
         <div id="map_canvas"></div>
         <input type="hidden" name="latitude" id="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
@@ -294,7 +294,7 @@ function template_profile_block_gmm()
 			', ($context['user']['is_owner']) ? '<a href="' . $scripturl . '?action=profile;area=forumprofile;u=' . $context['member']['id'] . '">' . $title . '</a>' : $title, '
 		</h3>
 		<div class="profileblock">
-			<script src="//maps.google.com/maps/api/js?sensor=false"></script>
+			<script src="//maps.google.com/maps/api/js"></script>
 			<div id="map_canvas" style="width: 100%; height: 300px; color: #000000;"></div>
 				<input type="hidden" name="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
 				<input type="hidden" name="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />

@@ -131,7 +131,7 @@ function imb_googlemap(&$buttons, &$menu_count)
 	loadlanguage('GoogleMap');
 
 	// Where do we want to place our button (new menu layout, this needs to be redone)
-	$insert_after = empty($modSettings['googleMap_ButtonLocation']) ? 'memberlist' : $modSettings['googleMap_ButtonLocation'];
+	// $insert_after = empty($modSettings['googleMap_ButtonLocation']) ? 'memberlist' : $modSettings['googleMap_ButtonLocation'];
 	$insert_after = 'memberlist';
 
 	// Define the new menu item(s), this will call for GoogleMap.controller
@@ -475,6 +475,8 @@ function gmm_integrate_whos_online($actions)
 	if (isset($actions['action']) && $actions['action'] === 'GoogleMap' && !empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'))
 	{
 		loadlanguage('GoogleMap');
-		return (isset($actions['sa']) && $actions['sa'] = 'kml') ? $txt['whoall_kml'] : $txt['whoall_googlemap'];
+		return (isset($actions['sa']) && $actions['sa'] === 'kml') ? $txt['whoall_kml'] : $txt['whoall_googlemap'];
 	}
+
+	return '';
 }

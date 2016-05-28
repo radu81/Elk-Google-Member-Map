@@ -116,7 +116,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Load in our javascript
 		loadJavascriptFile('markerclusterer_packed.js');
-		loadJavascriptFile('//maps.google.com/maps/api/js?sensor=false', array(), 'sensor.js');
+		loadJavascriptFile('//maps.google.com/maps/api/js', array(), 'sensor.js');
 
 		// Show the map
 		$context['place_pin'] = allowedTo('googleMap_place');
@@ -191,7 +191,7 @@ class GoogleMap_Controller extends Action_Controller
 		infowindow = null;
 
 	// Icon locations
-	var codebase = "//google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer",
+	var codebase = "//raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages",
 		chartbase = "//chart.googleapis.com/chart";
 
 	// Our normal pin to show on the map
@@ -636,7 +636,7 @@ class GoogleMap_Controller extends Action_Controller
 	 */
 	public function action_kml()
 	{
-		global $smcFunc, $settings, $options, $context, $scripturl, $txt, $modSettings, $user_info, $mbname, $memberContext;
+		global $settings, $options, $context, $scripturl, $txt, $modSettings, $user_info, $mbname, $memberContext;
 
 		// Are we allowed to view the map?
 		isAllowedTo('googleMap_view');
@@ -668,8 +668,6 @@ class GoogleMap_Controller extends Action_Controller
 		loadMemberData($temp);
 		foreach ($temp as $v)
 			loadMemberContext($v);
-
-		$smcFunc['db_free_result']($request);
 
 		// Start building the output
 		echo '<?xml version="1.0" encoding="', $context['character_set'], '"?' . '>
@@ -853,6 +851,7 @@ class GoogleMap_Controller extends Action_Controller
 		</Placemark>';
 			}
 		}
+
 		echo '
 		</Folder>
 	</kml>';
