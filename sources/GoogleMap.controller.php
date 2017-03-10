@@ -737,7 +737,7 @@ class GoogleMap_Controller extends Action_Controller
 			<name>' . $mbname . '</name>
 			<open>1</open>';
 
-		// create the pushpin styles ... just color really, all with a 80% transparancy
+		// create the pushpin styles ... just color really, all with a 80% transparency
 		echo '
 		<Style id="member">
 			<IconStyle>
@@ -1043,6 +1043,7 @@ class GoogleMap_Controller extends Action_Controller
 	 *
 	 * @param string $color
 	 * @param string $default
+	 * @return string
 	 */
 	private function gmm_validate_color($color, $default)
 	{

@@ -469,6 +469,7 @@ function gmm_pinArray()
  * translates custom actions to allow show what area a user is in
  *
  * @param string $actions
+ * @return string
  */
 function gmm_integrate_whos_online($actions)
 {
