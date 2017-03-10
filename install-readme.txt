@@ -1,5 +1,5 @@
 [hr]
-[center][size=16pt][b]Google Member Map V1.0.2[/b][/size][/center]
+[center][size=16pt][b]Google Member Map V1.0.3[/b][/size][/center]
 [hr]
 [color=blue][b][size=12pt][u]License[/u][/size][/b][/color]
 This Elkarte addon is released under a MPL V1.1 license, a copy of it with its provisions is included with the package.

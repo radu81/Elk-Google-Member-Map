@@ -20,8 +20,8 @@ $db = database();
 // List settings here in the format: setting_key => default_value.  Escape any "s. (" => \")
 $mod_settings = array(
 	'googleMap_Enable' => 0,
-	'googleMap_EnableLegend' => 1,
 	'googleMap_Key' => '',
+	'googleMap_EnableLegend' => 1,
 	'googleMap_PinGender' => 0,
 	'googleMap_KMLoutput_enable' => 0,
 	'googleMap_PinNumber' => 250,
