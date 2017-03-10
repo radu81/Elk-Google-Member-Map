@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.2
+ * @version 1.0.3
  *
  */
 
@@ -175,13 +175,13 @@ function template_profile_googlemap_modify()
 			<br /><span class="smalltext">'. $txt['googleMap_PleaseClick'].'<br />' . $txt['googleMap_Disclaimer'] . '</span>
 		</dt>
 		<dd>
-		<script src="//maps.google.com/maps/api/js?libraries=places"></script>
+		<script src="//maps.google.com/maps/api/js?libraries=places&key=' . $modSettings['googleMap_Key'] . '&sensor=false"></script>
 		<input id="searchTextField" type="text" size="50">
         <div id="map_canvas"></div>
         <input type="hidden" name="latitude" id="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
         <input type="hidden" name="longitude" id="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />
         <input type="hidden" name="pindate" id="pindate" size="50" value="', $context['member']['googleMap']['pindate'], '" />
-        <script><!-- // --><', '', '![CDATA[
+        <script>
 		var markersArray = [];
 
 		// Used to clear any previous pin placed on the map
@@ -270,8 +270,8 @@ function template_profile_googlemap_modify()
 			});
 		}
 		google.maps.event.addDomListener(window, "load", initialize);
-		// ]]', '', '></script>
-</dd>';
+		</script>
+		</dd>';
 	}
 }
 
@@ -280,7 +280,7 @@ function template_profile_googlemap_modify()
  */
 function template_profile_block_gmm()
 {
-	global $scripturl, $context, $txt;
+	global $scripturl, $context, $txt, $modSettings;
 
 	// If they have a pin set then we show the block
 	if (!empty($context['member']['googleMap']['longitude']) && !empty($context['member']['googleMap']['latitude']))
@@ -294,12 +294,12 @@ function template_profile_block_gmm()
 			', ($context['user']['is_owner']) ? '<a href="' . $scripturl . '?action=profile;area=forumprofile;u=' . $context['member']['id'] . '">' . $title . '</a>' : $title, '
 		</h3>
 		<div class="profileblock">
-			<script src="//maps.google.com/maps/api/js"></script>
+			<script src="//maps.google.com/maps/api/js?key=' . $modSettings['googleMap_Key'] . '&sensor=false""></script>
 			<div id="map_canvas" style="width: 100%; height: 300px; color: #000000;"></div>
 				<input type="hidden" name="latitude" size="50" value="', $context['member']['googleMap']['latitude'], '" />
 				<input type="hidden" name="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />
 				<input type="hidden" name="pindate" size="50" value="', $context['member']['googleMap']['pindate'], '" />
-				<script><!-- // --><![CDATA[
+				<script>
 					var latlng = new google.maps.LatLng(', $context['member']['googleMap']['latitude'], ', ', $context['member']['googleMap']['longitude'], ');
 					var options = {
 						zoom: 14,
@@ -320,7 +320,7 @@ function template_profile_block_gmm()
 						position: latlng,
 						map: map
 					});
-				// ]]></script>
+				</script>
 			</div>
 		</div>';
 	}

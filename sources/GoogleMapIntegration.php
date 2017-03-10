@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.2
+ * @version 1.0.3
  *
  */
 
@@ -263,9 +263,11 @@ function ModifyGoogleMapSettings()
 	$config_vars = array(
 		// Map - On or off?
 		array('check', 'googleMap_Enable', 'postinput' => $txt['googleMap_license']),
+		array('text', 'googleMap_Key', 'subtext' => $txt['googleMap_Key_desc']),
 		// Default Location/Zoom/Map Controls/etc.
 		array('title', 'googleMap_MapSettings'),
-		/* New menu structure, need to rethink what makes sense here, for now it will be under members in community
+		/* New menu structure, need to rethink what makes sense here,
+		   for now it will be under members in community
 		array('select', 'googleMap_ButtonLocation', array(
 				'home' => $txt['home'],
 				'help' => $txt['help'],

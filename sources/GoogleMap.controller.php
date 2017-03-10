@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.2
+ * @version 1.0.3
  *
  */
 
@@ -116,7 +116,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Load in our javascript
 		loadJavascriptFile('markerclusterer_packed.js');
-		loadJavascriptFile('//maps.google.com/maps/api/js', array(), 'sensor.js');
+		loadJavascriptFile('//maps.google.com/maps/api/js?key=' . $modSettings['googleMap_Key'] . '&sensor=false"', array(), 'sensor.js');
 
 		// Show the map
 		$context['place_pin'] = allowedTo('googleMap_place');

@@ -5,7 +5,7 @@
  * @copyright Spuds
  * @license   MPL 1.1 http://mozilla.org/MPL/1.1/
  *
- * @version 1.0
+ * @version 1.0.3
  *
  */
 
@@ -22,9 +22,10 @@ if (!empty($_POST['do_db_changes']))
 {
 	$db = database();
 
-	// List all mod settingss here to REMOVE
+	// List all mod settings here to REMOVE
 	$settings_to_remove = array(
 		'googleMap_Enable',
+		'googleMap_Key',
 		'googleMap_EnableLegend',
 		'googleMap_Key',
 		'googleMap_PinGender',
