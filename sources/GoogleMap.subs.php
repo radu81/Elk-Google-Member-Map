@@ -13,7 +13,9 @@
  */
 
 if (!defined('ELK'))
+{
 	die('No access...');
+}
 
 /**
  * Finds the total number of pins that have been added to the map
@@ -27,8 +29,7 @@ function gmm_pinCount()
 		SELECT COUNT(*) as TOTAL
 		FROM {db_prefix}members
 		WHERE latitude <> false AND longitude <> false',
-		array(
-		)
+		array()
 	);
 	list($totalSet) = $db->fetch_row($request);
 	$db->free_result($request);
@@ -40,7 +41,8 @@ function gmm_pinCount()
  * Loads the member id's for a group of pins
  * Will load all pins or limit based off the max pins to show setting
  *
- * @param boolean $loadAll set to true to allways load all member pins
+ * @param boolean $loadAll set to true to always load all member pins
+ * @return array
  */
 function gmm_loadPins($loadAll = false)
 {
@@ -81,7 +83,9 @@ function gmm_loadPins($loadAll = false)
 	// Load the pins
 	$temp = array();
 	while ($row = $db->fetch_assoc($request))
+	{
 		$temp[] = $row['id_member'];
+	}
 	$db->free_result($request);
 
 	return $temp;

@@ -14,7 +14,9 @@
 
 // Are we calling this directly then lets just say no
 if (!defined('ELK'))
+{
 	die('No access...');
+}
 
 class GoogleMap_Controller extends Action_Controller
 {
@@ -25,7 +27,7 @@ class GoogleMap_Controller extends Action_Controller
 	protected $_npin;
 
 	/**
-	 * Cluser pin style
+	 * Cluster pin style
 	 * @var string
 	 */
 	protected $_cpin;
@@ -75,7 +77,9 @@ class GoogleMap_Controller extends Action_Controller
 
 		// If GMM is disabled, we don't go any further
 		if (empty($modSettings['googleMap_Enable']))
+		{
 			fatal_lang_error('feature_disabled', true);
+		}
 
 		// Some things we will need
 		loadLanguage('GoogleMap');
@@ -112,7 +116,9 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Create the pins for template use
 		if (!empty($modSettings['googleMap_EnableLegend']))
+		{
 			$this->gmm_buildpins();
+		}
 
 		// Load in our javascript
 		loadJavascriptFile('markerclusterer_packed.js');
@@ -136,9 +142,13 @@ class GoogleMap_Controller extends Action_Controller
 		// Clean and restart the buffer so we only return JS back to the template
 		ob_end_clean();
 		if (!empty($modSettings['enableCompressedOutput']))
+		{
 			ob_start('ob_gzhandler');
+		}
 		else
+		{
 			ob_start();
+		}
 
 		// Start up the session URL fixer.
 		ob_start('ob_sessrewrite');
@@ -205,6 +215,7 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Gender pins as well?
 		if (!empty($modSettings['googleMap_PinGender']))
+		{
 			echo '
 	// The Gender Pins
 	var fpic = {
@@ -222,9 +233,11 @@ class GoogleMap_Controller extends Action_Controller
 		anchor: new google.maps.Point(' . $m_iconanchor_w . ', ' . $m_iconanchor_h . '),
 		scaledSize: new google.maps.Size(' . $m_iconscaled_w . ', ' . $m_iconscaled_h . ')
 	};';
+		}
 
 		// Cluster Pin Styles
 		if (!empty($modSettings['googleMap_EnableClusterer']))
+		{
 			echo '
 
 	// Various cluster pin styles
@@ -261,6 +274,7 @@ class GoogleMap_Controller extends Action_Controller
 			title: "' . $txt['googleMap_GroupOfPins'] . '",
 			styles: styles[style],
 		};';
+		}
 
 		echo '
 
@@ -355,6 +369,7 @@ class GoogleMap_Controller extends Action_Controller
 			label = markers[i].getAttribute("label");';
 
 		if (!empty($modSettings['googleMap_PinGender']))
+		{
 			echo '
 			if (parseInt(markers[i].getAttribute("gender")) === 0)
 				marker = createMarker(point, npic, label, html, i);
@@ -365,13 +380,17 @@ class GoogleMap_Controller extends Action_Controller
 			if (parseInt(markers[i].getAttribute("gender")) === 2)
 				marker = createMarker(point, fpic, label, html, i);
 		}';
+		}
 		else
+		{
 			echo '
 			marker = createMarker(point, npic, label, html, i);
 		}';
+		}
 
 		// Clustering enabled and we have enough pins?
 		if (!empty($modSettings['googleMap_EnableClusterer']) && ($context['total_pins'] > (!empty($modSettings['googleMap_MinMarkertoCluster']) ? $modSettings['googleMap_MinMarkertoCluster'] : 0)))
+		{
 			echo '
 		// Send the markers array to the cluster script
 		mc = new MarkerClusterer(map, gmarkers, mcOptions);
@@ -401,6 +420,7 @@ class GoogleMap_Controller extends Action_Controller
 			infowindow.setContent(content);
 			infowindow.open(map);
 		});';
+		}
 
 		echo '
 		// Place the assembled sidebar_html contents into the sidebar div
@@ -434,10 +454,12 @@ class GoogleMap_Controller extends Action_Controller
 
 		// Add a line to the sidebar html';
 		if ($modSettings['googleMap_Sidebar'] !== 'none')
+		{
 			echo '
 		sidebar_html += \'<a href="javascript:finduser(\' + i + \')">\' + name + \'</a><br /> \';';
+		}
 
-	echo '
+		echo '
 	}
 
 	// Picks up the sidebar click and opens the corresponding info window
@@ -483,9 +505,13 @@ class GoogleMap_Controller extends Action_Controller
 		// Make sure the buffer is empty so we return clean XML to the template
 		ob_end_clean();
 		if (!empty($modSettings['enableCompressedOutput']))
+		{
 			@ob_start('ob_gzhandler');
+		}
 		else
+		{
 			ob_start();
+		}
 
 		// Start up the session URL fixer.
 		ob_start('ob_sessrewrite');
@@ -499,7 +525,9 @@ class GoogleMap_Controller extends Action_Controller
 		// Load all of the data for these 'pined' members
 		loadMemberData($temp);
 		foreach ($temp as $mem)
+		{
 			loadMemberContext($mem);
+		}
 		unset($temp);
 
 		// Begin the XML output
@@ -530,8 +558,10 @@ class GoogleMap_Controller extends Action_Controller
 
 					// avatar?
 					if (!empty($settings['show_user_images']) && empty($options['show_no_avatars']) && !empty($marker['avatar']['image']))
+					{
 						$datablurb .= '
 				<div class="gmm_avatar" style="max-height:' . $div_height . 'px">' . $marker['avatar']['image'] . '</div>';
+					}
 
 					// user info section
 					$datablurb .= '
@@ -540,13 +570,17 @@ class GoogleMap_Controller extends Action_Controller
 
 					// Show the member's primary group (like 'Administrator') if they have one.
 					if (!empty($marker['group']))
+					{
 						$datablurb .= '
 						<li class="membergroup">' . $marker['group'] . '</li>';
+					}
 
 					// Show the post group if and only if they have no other group or the option is on, and they are in a post group.
 					if ((empty($settings['hide_post_group']) || $marker['group'] == '') && $marker['post_group'] != '')
+					{
 						$datablurb .= '
 						<li class="postgroup">' . $marker['post_group'] . '</li>';
+					}
 
 					// groups icons
 					$datablurb .= '
@@ -554,8 +588,10 @@ class GoogleMap_Controller extends Action_Controller
 
 					// show the title, if they have one
 					if (!empty($marker['title']) && !$user_info['is_guest'])
+					{
 						$datablurb .= '
 						<li class="title">' . $marker['title'] . '</li>';
+					}
 
 					// Show the profile, website, email address, and personal message buttons.
 					if ($settings['show_profile_buttons'])
@@ -566,17 +602,21 @@ class GoogleMap_Controller extends Action_Controller
 
 						// Don't show an icon if they haven't specified a website.
 						if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
+						{
 							$datablurb .= '
 								<li>
 									<a href="' . $marker['website']['url'] . '" title="' . $marker['website']['title'] . '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $marker['website']['title'] . '" />' : $txt['www']) . '
 								</li>';
+						}
 
 						// Don't show the email address if they want it hidden.
 						if (in_array($marker['show_email'], array('yes', 'yes_permission_override', 'no_through_forum')))
+						{
 							$datablurb .= '
 								<li>
 									<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $marker['id'] . '">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/email_sm.png" alt="' . $txt['email'] . '" title="' . $txt['email'] . '" />' : $txt['email']) . '
 								</li>';
+						}
 
 						// Show the PM tag
 						$datablurb .= '
@@ -597,8 +637,10 @@ class GoogleMap_Controller extends Action_Controller
 
 					// Show their personal text?
 					if (!empty($settings['show_blurb']) && $marker['blurb'] != '')
+					{
 						$datablurb .= '
 				<br class="clear" />' . $marker['blurb'];
+					}
 
 					$datablurb .= '
 			</div>';
@@ -608,16 +650,26 @@ class GoogleMap_Controller extends Action_Controller
 				$markers = '<marker lat="' . round($marker['googleMap']['latitude'], 8) . '" lng="' . round($marker['googleMap']['longitude'], 8) . '" ';
 
 				if ($marker['gender']['name'] == $txt['male'])
+				{
 					$markers .= 'gender="1"';
+				}
 				elseif ($marker['gender']['name'] == $txt['female'])
+				{
 					$markers .= 'gender="2"';
+				}
 				else
+				{
 					$markers .= 'gender="0"';
+				}
 
 				if (!empty($modSettings['googleMap_BoldMember']) && $marker['googleMap']['pindate'] >= $last_week)
+				{
 					$markers .= ' label="[b]' . $marker['name'] . '[/b]"><![CDATA[' . $datablurb . ']]></marker>';
+				}
 				else
+				{
 					$markers .= ' label="' . $marker['name'] . '"><![CDATA[' . $datablurb . ']]></marker>';
+				}
 
 				echo $markers;
 			}
@@ -643,7 +695,9 @@ class GoogleMap_Controller extends Action_Controller
 
 		// If it's not enabled, die.
 		if (empty($modSettings['googleMap_KMLoutput_enable']))
+		{
 			obExit(false);
+		}
 
 		// Language
 		loadLanguage('GoogleMap');
@@ -651,9 +705,13 @@ class GoogleMap_Controller extends Action_Controller
 		// Start off empty, we want a clean stream
 		ob_end_clean();
 		if (!empty($modSettings['enableCompressedOutput']))
+		{
 			@ob_start('ob_gzhandler');
+		}
 		else
+		{
 			ob_start();
+		}
 
 		// Start up the session URL fixer.
 		ob_start('ob_sessrewrite');
@@ -667,7 +725,9 @@ class GoogleMap_Controller extends Action_Controller
 
 		loadMemberData($temp);
 		foreach ($temp as $v)
+		{
 			loadMemberContext($v);
+		}
 
 		// Start building the output
 		echo '<?xml version="1.0" encoding="', $context['character_set'], '"?' . '>
@@ -753,10 +813,12 @@ class GoogleMap_Controller extends Action_Controller
 
 				// avatar?
 				if (!empty($settings['show_user_images']) && empty($options['show_no_avatars']) && !empty($marker['avatar']['image']))
+				{
 					echo '
 							<div style="float:right;height:' . $div_height . 'px">'
-					. $marker['avatar']['image'] . '<br />
+						. $marker['avatar']['image'] . '<br />
 							</div>';
+				}
 
 				// user info section
 				echo '
@@ -765,13 +827,17 @@ class GoogleMap_Controller extends Action_Controller
 
 				// Show the member's primary group (like 'Administrator') if they have one.
 				if (!empty($marker['group']))
+				{
 					echo '
 								<li>' . $marker['group'] . '</li>';
+				}
 
 				// Show the post group if and only if they have no other group or the option is on, and they are in a post group.
 				if ((empty($settings['hide_post_group']) || $marker['group'] == '') && $marker['post_group'] != '')
+				{
 					echo '
 								<li>' . $marker['post_group'] . '</li>';
+				}
 
 				// groups icons
 				echo '
@@ -779,8 +845,10 @@ class GoogleMap_Controller extends Action_Controller
 
 				// show the title, if they have one
 				if (!empty($marker['title']) && !$user_info['is_guest'])
+				{
 					echo '
 								<li>' . $marker['title'] . '</li>';
+				}
 
 				// Show the profile, website, email address, etc
 				if ($settings['show_profile_buttons'])
@@ -791,17 +859,21 @@ class GoogleMap_Controller extends Action_Controller
 
 					// Don't show an icon if they haven't specified a website.
 					if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
+					{
 						echo '
 										<li>
 											<a href="', $marker['website']['url'], '" title="', $marker['website']['title'], '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $marker['website']['title'] . '" />' : $txt['www']) . '
 										</li>';
+					}
 
 					// Don't show the email address if they want it hidden.
 					if (in_array($marker['show_email'], array('yes', 'yes_permission_override', 'no_through_forum')))
+					{
 						echo '
 										<li>
 											<a href="', $scripturl, '?action=emailuser;sa=email;uid=', $marker['id'], '">' . ($settings['use_image_buttons'] ? '<img class="icon" src="' . $settings['images_url'] . '/profile/email_sm.png" alt="' . $txt['email'] . '" title="' . $txt['email'] . '" />' : $txt['email']) . '
 										</li>';
+					}
 
 					// Show the PM tag
 					echo '
@@ -829,18 +901,26 @@ class GoogleMap_Controller extends Action_Controller
 				if (!empty($modSettings['googleMap_PinGender']))
 				{
 					if ($marker['gender']['name'] == 'Male')
+					{
 						echo '
 			<styleUrl>#male</styleUrl>';
+					}
 					elseif ($marker['gender']['name'] == 'Female')
+					{
 						echo '
 			<styleUrl>#female</styleUrl>';
+					}
 					else
+					{
 						echo '
 			<styleUrl>#member</styleUrl>';
+					}
 				}
 				else
+				{
 					echo '
 			<styleUrl>#member</styleUrl>';
+				}
 
 				echo '
 			<Point>
@@ -918,11 +998,17 @@ class GoogleMap_Controller extends Action_Controller
 		global $modSettings;
 
 		if ($this->_cpin === 'd_map_pin_icon')
+		{
 			$this->_cchld = ((isset($modSettings['googleMap_ClusterIcon']) && trim($modSettings['googleMap_ClusterIcon']) != '') ? $modSettings['googleMap_ClusterIcon'] : 'info');
+		}
 		elseif ($this->_cpin === 'd_map_pin_letter')
+		{
 			$this->_cchld = (isset($modSettings['googleMap_ClusterText']) && trim($modSettings['googleMap_ClusterText']) != '') ? $modSettings['googleMap_ClusterText'] : '';
+		}
 		elseif (is_int($this->_cpin))
+		{
 			$this->_cchld = '';
+		}
 		else
 		{
 			$this->_cpin = 'd_map_pin_letter';
@@ -938,9 +1024,13 @@ class GoogleMap_Controller extends Action_Controller
 		global $modSettings;
 
 		if ($this->_npin === 'd_map_pin_icon')
+		{
 			$this->_mchld = ((isset($modSettings['googleMap_PinIcon']) && trim($modSettings['googleMap_PinIcon']) != '') ? $modSettings['googleMap_PinIcon'] : 'info');
+		}
 		elseif ($this->_npin === 'd_map_pin_letter')
+		{
 			$this->_mchld = (isset($modSettings['googleMap_PinText']) && trim($modSettings['googleMap_PinText']) != '') ? $modSettings['googleMap_PinText'] : '';
+		}
 		else
 		{
 			$this->_npin = 'd_map_pin_letter';
@@ -960,11 +1050,15 @@ class GoogleMap_Controller extends Action_Controller
 
 		// no leading #'s please
 		if (substr($modSettings[$color], 0, 1) === '#')
+		{
 			$modSettings[$color] = substr($modSettings[$color], 1);
+		}
 
 		// is it a hex
 		if (!preg_match('~^[a-f0-9]{6}$~i', $modSettings[$color]))
+		{
 			$modSettings[$color] = $default;
+		}
 
 		return strtoupper($modSettings[$color]);
 	}
@@ -974,6 +1068,7 @@ class GoogleMap_Controller extends Action_Controller
 	 *
 	 * @param string $area
 	 * @param string $default
+	 * @return string
 	 */
 	private function gmm_validate_pin($area, $default)
 	{
@@ -1007,7 +1102,9 @@ class GoogleMap_Controller extends Action_Controller
 			}
 		}
 		else
+		{
 			$pin = $default;
+		}
 
 		return $pin;
 	}

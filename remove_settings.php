@@ -11,9 +11,13 @@
 
 // If we have found SSI.php and we are outside of Elkarte, then we are running standalone.
 if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('ELK'))
+{
 	require_once(dirname(__FILE__) . '/SSI.php');
+}
 elseif (!defined('ELK')) // If we are outside Elkarte and can't find SSI.php, then throw an error
+{
 	die('<b>Error:</b> Cannot uninstall - please verify you put this file in the same place as Elkarte\'s SSI.php.');
+}
 
 global $modSettings;
 
@@ -64,8 +68,12 @@ if (!empty($_POST['do_db_changes']))
 	{
 		// Remove the mod_settings if applicable, first the session
 		foreach ($settings_to_remove as $setting)
+		{
 			if (isset($modSettings[$setting]))
+			{
 				unset($modSettings[$setting]);
+			}
+		}
 
 		// And now the database values
 		$db->query('', '
@@ -83,5 +91,7 @@ if (!empty($_POST['do_db_changes']))
 	}
 
 	if (ELK == 'SSI')
-	   echo 'Congratulations! You have successfully removed this Addon!';
+	{
+		echo 'Congratulations! You have successfully removed this Addon!';
+	}
 }

@@ -11,9 +11,13 @@
 
 // If we have found SSI.php and we are outside of ELK, then we are running standalone.
 if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('ELK'))
+{
 	require_once(dirname(__FILE__) . '/SSI.php');
+}
 elseif (!defined('ELK')) // If we are outside ELK and can't find SSI.php, then throw an error
+{
 	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as Elkarte\'s SSI.php.');
+}
 
 $db = database();
 
@@ -59,7 +63,9 @@ $mod_settings = array(
 foreach ($mod_settings as $new_setting => $new_value)
 {
 	if (!isset($modSettings[$new_setting]))
+	{
 		updateSettings(array($new_setting => $new_value));
+	}
 }
 
 // Settings to create the new tables...
@@ -77,11 +83,11 @@ $columns[] = array(
 	'error' => 'fatal',
 	'parameters' => array(),
 	'column_info' => array(
-		 'name' => 'longitude',
-		 'auto' => false,
-		 'default' => 0,
-		 'type' => 'decimal(18,15)',
-		 'null' => true,
+		'name' => 'longitude',
+		'auto' => false,
+		'default' => 0,
+		'type' => 'decimal(18,15)',
+		'null' => true,
 	)
 );
 $columns[] = array(
@@ -90,11 +96,11 @@ $columns[] = array(
 	'error' => 'fatal',
 	'parameters' => array(),
 	'column_info' => array(
-		 'name' => 'latitude',
-		 'auto' => false,
-		 'default' => 0,
-		 'type' => 'decimal(18,15)',
-		 'null' => true,
+		'name' => 'latitude',
+		'auto' => false,
+		'default' => 0,
+		'type' => 'decimal(18,15)',
+		'null' => true,
 	)
 );
 $columns[] = array(
@@ -103,23 +109,29 @@ $columns[] = array(
 	'error' => 'fatal',
 	'parameters' => array(),
 	'column_info' => array(
-		 'name' => 'pindate',
-		 'auto' => false,
-		 'default' => 0,
-		 'type' => 'int',
-		 'size' => 10,
-		 'null' => false,
+		'name' => 'pindate',
+		'auto' => false,
+		'default' => 0,
+		'type' => 'int',
+		'size' => 10,
+		'null' => false,
 	)
 );
 
 foreach ($tables as $table)
+{
 	$dbtbl->db_create_table($table['table_name'], $table['columns'], $table['indexes'], $table['parameters'], $table['if_exists'], $table['error']);
+}
 
 foreach ($rows as $row)
+{
 	$db->insert($row['method'], $row['table_name'], $row['columns'], $row['data'], $row['keys']);
+}
 
 foreach ($columns as $column)
+{
 	$dbtbl->db_add_column($column['table_name'], $column['column_info'], $column['parameters'], $column['if_exists'], $column['error']);
+}
 
 // Initialize the groups array with 'ungrouped members' (ID: 0).
 $groups = array(0);
@@ -131,7 +143,9 @@ $request = $db->query('', '
 	WHERE min_posts = -1');
 
 while ($row = $db->fetch_assoc($request))
+{
 	$groups[] = $row['id_group'];
+}
 
 // Give them all their new map permissions to make it easy for the admin.
 $request = $db->query('', '
@@ -147,4 +161,6 @@ $request = $db->query('', '
 		(\'googleMap_place\', ' . implode(', 1),(\'googleMap_place\', ', $groups) . ', 1)');
 
 if (ELK === 'SSI')
-   echo 'Congratulations! You have successfully installed this Addon!';
+{
+	echo 'Congratulations! You have successfully installed this Addon!';
+}
