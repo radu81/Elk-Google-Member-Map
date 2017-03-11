@@ -35,7 +35,7 @@ $txt['googleMap_error'] = 'Unable to read the map pin data, result was';
 // Map addon settings
 $txt['googleMap_license'] = 'The Google JavaScript Maps API V3 is a free service, available for any web site that is free to consumers. By enabling and using this ElkArte modification you are acknowledging and agreeing to the <a href="http://code.google.com/apis/maps/terms.html" target="_blank"> Google terms of use</a>';
 $txt['googleMap_Key'] = 'Google Map API key';
-$txt['googleMap_Key_desc'] = '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get an API key</a>';
+$txt['googleMap_Key_desc'] = '<a class="linkbutton" href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get an API key</a>';
 $txt['googleMap_MapSettings'] = 'General Map Settings';
 $txt['googleMap_desc'] = 'From here you can control the settings for how the Member Map appears and functions on your forum';
 $txt['googleMap_Enable'] = 'Enable the Member Map Modification';

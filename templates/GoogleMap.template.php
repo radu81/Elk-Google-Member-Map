@@ -133,7 +133,7 @@ function template_map()
 			echo '
 							<tr>
 								<td>
-									<a href="', $scripturl, '?action=profile;area=forumprofile">', $txt['googleMap_AddPinNote'], '</a>
+									<a href="', $scripturl, '?action=profile;area=forumprofile#GMAP">', $txt['googleMap_AddPinNote'], '</a>
 								</td>
 							</tr>';
 
@@ -170,7 +170,7 @@ function template_profile_googlemap_modify()
 	if (!empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'))
 	{
 		echo '
-		<dt>
+		<dt id="GMAP">
 			<strong>', $txt['googleMap'], '</strong>
 			<br /><span class="smalltext">'. $txt['googleMap_PleaseClick'].'<br />' . $txt['googleMap_Disclaimer'] . '</span>
 		</dt>
