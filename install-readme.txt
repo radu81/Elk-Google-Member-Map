@@ -5,7 +5,8 @@
 This Elkarte addon is released under a MPL V1.1 license, a copy of it with its provisions is included with the package.
 
 [color=blue][b][size=12pt][u]Dependencies[/u][/size][/b][/color]
-The Google JavaScript Maps API V3 to create the map and place pins.  This API is available for any web site that is free to consumers. By enabling and using this addon you will be acknowledging and agreeing to the Google [url="http://code.google.com/apis/maps/terms.html"] terms of use[/url]
+The Google JavaScript Maps API V3 to create the map and place pins.  This API is available for any web site that is free to consumers. By enabling and using this addon you will be acknowledging and agreeing to the [url="http://code.google.com/apis/maps/terms.html"] Google terms of use[/url].  You will also need to $txt['googleMap_Key_desc'] = '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get an API key</a> and register the site name with google.';
+
 
 [url=http://jscolor.com/]JSColor[/url] project to select the pin color in the admin interface.  JSColor is by Jan Odvárko and is released under the GNU Lesser General Public License. LGPL differs from GPL by allowing you to use JSColor even in non-(L)GPL applications.
 

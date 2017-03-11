@@ -263,7 +263,7 @@ function ModifyGoogleMapSettings()
 	$config_vars = array(
 		// Map - On or off?
 		array('check', 'googleMap_Enable', 'postinput' => $txt['googleMap_license']),
-		array('text', 'googleMap_Key', 'subtext' => $txt['googleMap_Key_desc']),
+		array('text', 'googleMap_Key', 'postinput' => $txt['googleMap_Key_desc']),
 		// Default Location/Zoom/Map Controls/etc.
 		array('title', 'googleMap_MapSettings'),
 		/* New menu structure, need to rethink what makes sense here,
