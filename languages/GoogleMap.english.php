@@ -1,5 +1,7 @@
 <?php
 
+global $scripturl;
+
 // Template strings
 $txt['googleMap'] = 'Member Map';
 $txt['googleMap_Reset'] = 'Reset Map';

@@ -109,7 +109,8 @@ class GoogleMap_Controller extends Action_Controller
 		global $context, $txt, $modSettings;
 
 		// Load up our template and style sheet
-		loadTemplate('GoogleMap', 'GoogleMap');
+		loadTemplate('GoogleMap');
+		loadCSSFile('GoogleMap.css');
 
 		// Load number of member pins
 		$totalSet = gmm_pinCount();

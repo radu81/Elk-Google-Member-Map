@@ -64,7 +64,8 @@ function ilmd_googlemap(&$select_columns, &$select_tables, $set)
 function ilpf_googlemap(&$profile_fields)
 {
 	// Our callback_func template is here
-	LoadTemplate('GoogleMap', 'GoogleMap');
+	LoadTemplate('GoogleMap');
+	loadCSSFile('GoogleMap.css');
 
 	$profile_fields += array(
 		'latitude' => array(
