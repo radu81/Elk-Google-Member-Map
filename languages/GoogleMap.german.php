@@ -33,7 +33,7 @@ $txt['googleMap_xmlerror'] = 'Fehler bei der AJAX-Abfrage.';
 $txt['googleMap_error'] = 'Oops, die Karte kann nicht geladen werden. Dies hat folgenden Grund';
 
 // Map addon settings
-$txt['googleMap_license'] = 'The Google JavaScript Maps API V3 is a free service, available for any web site that is free to consumers. By enabling and using this ElkArte modification you are acknowledging and agreeing to the<a href="http://code.google.com/apis/maps/terms.html" target="_blank"> Google terms of use</a>';
+$txt['googleMap_license'] = 'The Google JavaScript Maps API V3 is a free service, available for any web site that is free to consumers. By enabling and using this ElkArte modification you are acknowledging and agreeing to the<a href="https://developers.google.com/maps/terms?csw=1" target="_blank"> Google terms of use</a>';
 $txt['googleMap_Key'] = 'Google Map API key';
 $txt['googleMap_Key_desc'] = '<a class="linkbutton" href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get an API key</a>';
 $txt['googleMap_MapSettings'] = 'Mitglieder-Landkarte Einstellungen';
