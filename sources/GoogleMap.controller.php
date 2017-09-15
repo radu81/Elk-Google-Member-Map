@@ -3,7 +3,7 @@
 /**
  * @package "Google Member Map" Addon for Elkarte
  * @author Spuds
- * @copyright (c) 2011-2014 Spuds
+ * @copyright (c) 2011-2017 Spuds
  * @license This Source Code is subject to the terms of the Mozilla Public License
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
@@ -550,12 +550,16 @@ class GoogleMap_Controller extends Action_Controller
 
 					// 1.0
 					if (!empty($marker['online']['image_href']))
+					{
 						$datablurb .= '
 						<img class="centericon" src="' . $marker['online']['image_href'] . '" alt="' . $marker['online']['text'] . '" /></a>';
+					}
 					// 1.1
 					else
+					{
 						$datablurb .= '
 						<i class="' . ($marker['online']['is_online'] ? 'iconline' : 'icoffline') . '" title="' . $marker['online']['text'] . '"></i>';
+					}
 
 					$datablurb .= '	
 					<a href="' . $marker['href'] . '">' . $marker['name'] . '</a>
@@ -581,7 +585,7 @@ class GoogleMap_Controller extends Action_Controller
 					}
 
 					// Show the post group if and only if they have no other group or the option is on, and they are in a post group.
-					if ((empty($settings['hide_post_group']) || $marker['group'] == '') && $marker['post_group'] != '')
+					if ((empty($settings['hide_post_group']) || $marker['group'] === '') && $marker['post_group'] !== '')
 					{
 						$datablurb .= '
 						<li class="postgroup">' . $marker['post_group'] . '</li>';
@@ -606,7 +610,7 @@ class GoogleMap_Controller extends Action_Controller
 							<ul>';
 
 						// Don't show an icon if they haven't specified a website.
-						if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
+						if ($marker['website']['url'] !== '' && !isset($context['disabled_fields']['website']))
 						{
 							$datablurb .= '
 								<li>
@@ -645,12 +649,16 @@ class GoogleMap_Controller extends Action_Controller
 					{
 						// 1.0
 						if (!empty($marker['blurb']))
-						$datablurb .= '
+						{
+							$datablurb .= '
 				<br class="clear" />' . $marker['blurb'];
+						}
 						// 1.1
 						elseif (!empty($marker['cust_blurb']))
+						{
 							$datablurb .= '
 				<br class="clear" />' . $marker['cust_blurb'];
+						}
 					}
 
 					$datablurb .= '
@@ -846,7 +854,7 @@ class GoogleMap_Controller extends Action_Controller
 				}
 
 				// Show the post group if and only if they have no other group or the option is on, and they are in a post group.
-				if ((empty($settings['hide_post_group']) || $marker['group'] == '') && $marker['post_group'] != '')
+				if ((empty($settings['hide_post_group']) || $marker['group'] === '') && $marker['post_group'] !== '')
 				{
 					echo '
 								<li>' . $marker['post_group'] . '</li>';
@@ -871,7 +879,7 @@ class GoogleMap_Controller extends Action_Controller
 									<ul style="padding:0;margin:0;list-style:none;">';
 
 					// Don't show an icon if they haven't specified a website.
-					if ($marker['website']['url'] != '' && !isset($context['disabled_fields']['website']))
+					if ($marker['website']['url'] !== '' && !isset($context['disabled_fields']['website']))
 					{
 						echo '
 										<li>
@@ -913,12 +921,12 @@ class GoogleMap_Controller extends Action_Controller
 				// pin color
 				if (!empty($modSettings['googleMap_PinGender']))
 				{
-					if ($marker['gender']['name'] == 'Male')
+					if ($marker['gender']['name'] === 'Male')
 					{
 						echo '
 			<styleUrl>#male</styleUrl>';
 					}
-					elseif ($marker['gender']['name'] == 'Female')
+					elseif ($marker['gender']['name'] === 'Female')
 					{
 						echo '
 			<styleUrl>#female</styleUrl>';
@@ -989,7 +997,7 @@ class GoogleMap_Controller extends Action_Controller
 		$modSettings['cpin'] = is_int($this->_cpin) ? $this->_cpin : '?chst=' . $this->_cpin . $this->_cshd . '&chld=' . $this->_cchld;
 
 		// The gender pins follow the member pin format ....
-		if ($this->_npin == 'd_map_pin_icon')
+		if ($this->_npin === 'd_map_pin_icon')
 		{
 			$modSettings['fpin'] = '?chst=d_map_pin_icon' . $this->_nshd . '&chld=WCfemale|FF0099';
 			$modSettings['mpin'] = '?chst=d_map_pin_icon' . $this->_nshd . '&chld=WCmale|0066FF';
@@ -1012,11 +1020,11 @@ class GoogleMap_Controller extends Action_Controller
 
 		if ($this->_cpin === 'd_map_pin_icon')
 		{
-			$this->_cchld = ((isset($modSettings['googleMap_ClusterIcon']) && trim($modSettings['googleMap_ClusterIcon']) != '') ? $modSettings['googleMap_ClusterIcon'] : 'info');
+			$this->_cchld = ((isset($modSettings['googleMap_ClusterIcon']) && trim($modSettings['googleMap_ClusterIcon']) !== '') ? $modSettings['googleMap_ClusterIcon'] : 'info');
 		}
 		elseif ($this->_cpin === 'd_map_pin_letter')
 		{
-			$this->_cchld = (isset($modSettings['googleMap_ClusterText']) && trim($modSettings['googleMap_ClusterText']) != '') ? $modSettings['googleMap_ClusterText'] : '';
+			$this->_cchld = (isset($modSettings['googleMap_ClusterText']) && trim($modSettings['googleMap_ClusterText']) !== '') ? $modSettings['googleMap_ClusterText'] : '';
 		}
 		elseif (is_int($this->_cpin))
 		{
@@ -1038,11 +1046,11 @@ class GoogleMap_Controller extends Action_Controller
 
 		if ($this->_npin === 'd_map_pin_icon')
 		{
-			$this->_mchld = ((isset($modSettings['googleMap_PinIcon']) && trim($modSettings['googleMap_PinIcon']) != '') ? $modSettings['googleMap_PinIcon'] : 'info');
+			$this->_mchld = ((isset($modSettings['googleMap_PinIcon']) && trim($modSettings['googleMap_PinIcon']) !== '') ? $modSettings['googleMap_PinIcon'] : 'info');
 		}
 		elseif ($this->_npin === 'd_map_pin_letter')
 		{
-			$this->_mchld = (isset($modSettings['googleMap_PinText']) && trim($modSettings['googleMap_PinText']) != '') ? $modSettings['googleMap_PinText'] : '';
+			$this->_mchld = (isset($modSettings['googleMap_PinText']) && trim($modSettings['googleMap_PinText']) !== '') ? $modSettings['googleMap_PinText'] : '';
 		}
 		else
 		{
