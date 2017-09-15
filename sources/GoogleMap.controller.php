@@ -8,15 +8,9 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.3
+ * @version 1.0.4
  *
  */
-
-// Are we calling this directly then lets just say no
-if (!defined('ELK'))
-{
-	die('No access...');
-}
 
 class GoogleMap_Controller extends Action_Controller
 {
@@ -552,8 +546,18 @@ class GoogleMap_Controller extends Action_Controller
 					$datablurb = '
 			<div class="googleMap">
 				<h4>
-					<a  href="' . $marker['online']['href'] . '">
-						<img class="centericon" src="' . $marker['online']['image_href'] . '" alt="' . $marker['online']['text'] . '" /></a>
+					<a  href="' . $marker['online']['href'] . '" title="' . $marker['online']['text'] . '">';
+
+					// 1.0
+					if (!empty($marker['online']['image_href']))
+						$datablurb .= '
+						<img class="centericon" src="' . $marker['online']['image_href'] . '" alt="' . $marker['online']['text'] . '" /></a>';
+					// 1.1
+					else
+						$datablurb .= '
+						<i class="' . ($marker['online']['is_online'] ? 'iconline' : 'icoffline') . '" title="' . $marker['online']['text'] . '"></i>';
+
+					$datablurb .= '	
 					<a href="' . $marker['href'] . '">' . $marker['name'] . '</a>
 				</h4>';
 
@@ -637,10 +641,16 @@ class GoogleMap_Controller extends Action_Controller
 				</div>';
 
 					// Show their personal text?
-					if (!empty($settings['show_blurb']) && $marker['blurb'] != '')
+					if (!empty($settings['show_blurb']))
 					{
+						// 1.0
+						if (!empty($marker['blurb']))
 						$datablurb .= '
 				<br class="clear" />' . $marker['blurb'];
+						// 1.1
+						elseif (!empty($marker['cust_blurb']))
+							$datablurb .= '
+				<br class="clear" />' . $marker['cust_blurb'];
 					}
 
 					$datablurb .= '
@@ -650,11 +660,13 @@ class GoogleMap_Controller extends Action_Controller
 				// Let's bring it all together...
 				$markers = '<marker lat="' . round($marker['googleMap']['latitude'], 8) . '" lng="' . round($marker['googleMap']['longitude'], 8) . '" ';
 
-				if ($marker['gender']['name'] == $txt['male'])
+				if ((isset($marker['cust_gender']) && $marker['cust_gender'] === $txt['male']) ||
+					(isset($marker['gender']['name']) && $marker['gender']['name'] === $txt['male']))
 				{
 					$markers .= 'gender="1"';
 				}
-				elseif ($marker['gender']['name'] == $txt['female'])
+				elseif ((isset($marker['cust_gender']) && $marker['cust_gender'] === $txt['female']) ||
+					(isset($marker['gender']['name']) && $marker['gender']['name'] === $txt['female']))
 				{
 					$markers .= 'gender="2"';
 				}
