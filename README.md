@@ -1,9 +1,10 @@
-### Google Member Map
+## Google Member Map
 
-**License**
-* This Modifications Source Code is subject to the terms of the Mozilla Public License version 1.1 (the "License"). You can obtain a copy of the License at [http://mozilla.org/MPL/1.1/.](http://mozilla.org/MPL/1.1/)
+### License
 
-**Introduction**
+This Modifications Source Code is subject to the terms of the Mozilla Public License version 1.1 (the "License"). You can obtain a copy of the License at [http://mozilla.org/MPL/1.1/.](http://mozilla.org/MPL/1.1/)
+
+### Introduction
 
 This mod installs a member map to your website which allows your members to pin their location on a map. It uses Google Maps 3.0 API to generate the map and place 'Push" pins.
 
