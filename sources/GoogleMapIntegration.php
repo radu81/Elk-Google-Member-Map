@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.3
+ * @version 1.0.4
  *
  */
 
@@ -72,32 +72,32 @@ function ilpf_googlemap(&$profile_fields)
 			'type' => 'callback',
 			'callback_func' => 'googlemap_modify',
 			'permission' => 'googleMap_place',
-			'input_validate' => create_function('&$value', '
+			'input_validate' => function(&$value) {
 				global $profile_vars, $cur_profile;
 
 				// Set latitude to a float value
 				$value = (float) $value;
 
 				// Fix up longitude as well
-				$profile_vars[\'longitude\'] = !empty($_POST[\'longitude\']) ? (float) $_POST[\'longitude\'] : 0;
-				$cur_profile[\'longitude\'] = !empty($_POST[\'longitude\']) ? (float) $_POST[\'longitude\'] : 0;
+				$profile_vars['longitude'] = !empty($_POST['longitude']) ? (float) $_POST['longitude'] : 0;
+				$cur_profile['longitude'] = !empty($_POST['longitude']) ? (float) $_POST['longitude'] : 0;
 
 				// Right now is a good time for the pin date ;)
 				$pintime = time();
-				$profile_vars[\'pindate\'] = (int) $pintime;
-				$cur_profile[\'pindate\'] = (int) $pintime;
+				$profile_vars['pindate'] = (int) $pintime;
+				$cur_profile['pindate'] = (int) $pintime;
 
 				return true;
-			'),
-			'preload' => create_function('', '
+			},
+			'preload' => function() {
 				global $context, $cur_profile;
 
-				$context[\'member\'][\'googleMap\'][\'latitude\'] = (float) $cur_profile[\'latitude\'];
-				$context[\'member\'][\'googleMap\'][\'longitude\'] = (float) $cur_profile[\'longitude\'];
-				$context[\'member\'][\'googleMap\'][\'pindate\'] = $cur_profile[\'pindate\'];
+				$context['member']['googleMap']['latitude'] = (float) $cur_profile['latitude'];
+				$context['member']['googleMap']['longitude'] = (float) $cur_profile['longitude'];
+				$context['member']['googleMap']['pindate'] = $cur_profile['pindate'];
 
 				return true;
-			'),
+			},
 		)
 	);
 }
