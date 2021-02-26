@@ -141,7 +141,7 @@ function template_map()
 		if (!empty($modSettings['googleMap_KMLoutput_enable']))
 			echo '
 							<tr>
-								<td align="center">
+								<td style=text-align: center;">
 									<a href="', $scripturl, '?action=GoogleMap;sa=kml"><img src="', $settings['default_theme_url'], '/images/google_earth_feed.gif" border="0" alt="" /></a>
 								</td>
 							</tr>';

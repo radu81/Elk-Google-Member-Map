@@ -138,7 +138,8 @@ $groups = array(0);
 
 // Get all the non-postcount based groups.
 $request = $db->query('', '
-	SELECT id_group
+	SELECT 
+	    id_group
 	FROM {db_prefix}membergroups
 	WHERE min_posts = -1');
 

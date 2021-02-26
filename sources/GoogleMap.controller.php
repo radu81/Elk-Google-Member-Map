@@ -14,52 +14,28 @@
 
 class GoogleMap_Controller extends Action_Controller
 {
-	/**
-	 * Normal pin
-	 * @var string
-	 */
+	/** @var string Normal pin */
 	protected $_npin;
 
-	/**
-	 * Cluster pin style
-	 * @var string
-	 */
+	/** @var string Cluster pin style */
 	protected $_cpin;
 
-	/**
-	 * Female pin style
-	 * @var string
-	 */
+	/** @var sting Female pin style */
 	protected $_fpin;
 
-	/**
-	 * Male pin style
-	 * @var string
-	 */
+	/** @var string Male pin style */
 	protected $_mpin;
 
-	/**
-	 * Pin background color/icon/text
-	 * @var string
-	 */
+	/** @var string Pin background color/icon/text */
 	protected $_mchld;
 
-	/**
-	 * Cluster pin background color/icon/text
-	 * @var string
-	 */
+	/** @var string Cluster pin background color/icon/text */
 	protected $_cchld;
 
-	/**
-	 * Normal pin shadow style
-	 * @var string
-	 */
+	/** @var string Normal pin shadow style */
 	protected $_nshd;
 
-	/**
-	 * Cluster pin shadow style
-	 * @var string
-	 */
+	/** @var string Cluster pin shadow style */
 	protected $_cshd;
 
 	/**
@@ -1007,8 +983,6 @@ class GoogleMap_Controller extends Action_Controller
 			$modSettings['fpin'] = '?chst=d_map_pin_letter' . $this->_nshd . '&chld=|FF0099|' . $modSettings['googleMap_PinForeground'];
 			$modSettings['mpin'] = '?chst=d_map_pin_letter' . $this->_nshd . '&chld=|0066FF|' . $modSettings['googleMap_PinForeground'];
 		}
-
-		return;
 	}
 
 	/**
@@ -1096,6 +1070,8 @@ class GoogleMap_Controller extends Action_Controller
 	{
 		global $modSettings;
 
+		$pin = $default;
+
 		// Return the type of pin requested
 		if (isset($modSettings[$area]))
 		{
@@ -1122,10 +1098,6 @@ class GoogleMap_Controller extends Action_Controller
 				default:
 					$pin = 'd_map_pin_icon';
 			}
-		}
-		else
-		{
-			$pin = $default;
 		}
 
 		return $pin;
