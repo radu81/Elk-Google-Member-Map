@@ -3,12 +3,12 @@
 /**
  * @package "Google Member Map" Addon for Elkarte
  * @author Spuds
- * @copyright (c) 2011-2017 Spuds
+ * @copyright (c) 2011-2021 Spuds
  * @license This Source Code is subject to the terms of the Mozilla Public License
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0
+ * @version 1.0.6
  *
  */
 
@@ -78,7 +78,7 @@ function gmm_loadPins($loadAll = false)
 		$query,
 		array(
 			'last_week' => time() - (7 * 24 * 60 * 60),
-			'max_pins_to_show' => isset($modSettings['googleMap_PinNumber']) ? $modSettings['googleMap_PinNumber'] : 0,
+			'max_pins_to_show' => $modSettings['googleMap_PinNumber'] ?? 0,
 		)
 	);
 

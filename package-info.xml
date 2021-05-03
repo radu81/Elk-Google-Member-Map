@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
-<package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
+<!DOCTYPE package-info SYSTEM "https://www.elkarte.net/site/package-info">
+<package-info xmlns="https://www.elkarte.net/site/package-info" xmlns:elk="https://www.elkarte.net/">
 	<id>Spuds:gmmMod</id>
 	<name>Google Member Map</name>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<type>addon</type>
 	<license><![CDATA[
 /**
@@ -12,7 +12,7 @@
  * @author spuds
  * @license MPL 1.1 http://mozilla.org/MPL/1.1/
  *
- * @version 1.0.5
+ * @version 1.0.6
  */
 ]]></license>
 	<install for="1.0 - 1.1.99">
@@ -22,8 +22,7 @@
 		<require-file name="sources/GoogleMapIntegration.php" destination="SOURCEDIR">Our integration Functions</require-file>
 		<require-file name="sources/GoogleMap.controller.php" destination="CONTROLLERDIR">The addon controller</require-file>
 		<require-file name="sources/GoogleMap.subs.php" destination="SUBSDIR">The addon helpers</require-file>
-		<require-file name="scripts/markerclusterer_packed.js" destination="THEMEDIR/scripts">Javascript to enable the cluster functions</require-file>
-		<require-dir name="scripts/jscolor" destination="BOARDDIR/themes/default/scripts">Javascript to enable color selection</require-dir>
+		<require-dir name="scripts" destination="THEMEDIR">Javascript Helper Files</require-dir>
 		<require-file name="css/GoogleMap.css" destination="THEMEDIR/css">Style Sheets</require-file>
 		<require-file name="templates/GoogleMap.template.php" destination="THEMEDIR">The template for viewing the member map</require-file>
 		<require-file name="languages/GoogleMap.english.php" destination="LANGUAGEDIR/english">The language strings</require-file>
@@ -66,8 +65,7 @@
 		<remove-file name="SOURCEDIR/GoogleMapIntegration.php" />
 		<remove-file name="CONTROLLERDIR/GoogleMap.controller.php" />
 		<remove-file name="SUBSDIR/GoogleMap.subs.php" destination="SUBSDIR" />
-		<remove-file name="THEMEDIR/scripts/markerclusterer_packed.js" />
-		<remove-dir name="BOARDDIR/themes/default/scripts/jscolor" />
+		<remove-file name="THEMEDIR/scripts/jscolor.min.js" />
 		<remove-file name="THEMEDIR/css/GoogleMap.css" />
 		<remove-file name="THEMEDIR/GoogleMap.template.php" />
 		<remove-file name="LANGUAGEDIR/english/GoogleMap.english.php" />

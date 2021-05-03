@@ -90,7 +90,7 @@ if (!empty($_POST['do_db_changes']))
 		));
 	}
 
-	if (ELK == 'SSI')
+	if (ELK === 'SSI')
 	{
 		echo 'Congratulations! You have successfully removed this Addon!';
 	}
