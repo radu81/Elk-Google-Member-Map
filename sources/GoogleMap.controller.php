@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.4
+ * @version 1.0.5
  *
  */
 
@@ -197,7 +197,7 @@ class GoogleMap_Controller extends Action_Controller
 
 	// Icon locations
 	var codebase = "//raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages",
-		chartbase = "//chart.googleapis.com/chart";
+		chartbase = "//chart.apis.google.com/chart";
 
 	// Our normal pin to show on the map
 	var npic = {
