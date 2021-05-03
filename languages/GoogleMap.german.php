@@ -50,7 +50,6 @@ $txt['googleMap_Type'] = 'Standard-Darstellung';
 $txt['googleMap_roadmap'] = 'Karte';
 $txt['googleMap_satellite'] = 'Satellit';
 $txt['googleMap_hybrid'] = 'Hybrid';
-$txt['googleMap_NavType'] = 'Wähle die Funktionsweise der Navigation:';
 $txt['googleMap_largemapcontrol3d'] = 'Großer 3D Zoom';
 $txt['googleMap_smallzoomcontrol3d'] = 'Kleiner 3D Zoom';
 $txt['googleMap_defaultzoomcontrol'] = 'Angepasst an Fenstergröße';
