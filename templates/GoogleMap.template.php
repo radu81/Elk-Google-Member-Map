@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.6
+ * @version 1.0.5
  *
  */
 
@@ -26,9 +26,9 @@ function template_map()
 		{
 			echo '
 					<div class="sidebarleft">
-						<div class="centertext">
+						<h2 class="category_header">
 							', $txt['googleMap_Pinned'], '
-						</div>
+						</h2>
 						<div id="googleSidebar"></div>
 						<div class="centertext googleMap_Legend">' . (!empty($modSettings['googleMap_BoldMember']) ? '
 							<strong>' . $txt['googleMap_bold'] . '</strong>&nbsp;' . $txt['googleMap_OnMove'] : '&nbsp;') . '
