@@ -3,17 +3,14 @@
 /**
  * @package "Google Member Map" Addon for Elkarte
  * @author Spuds
- * @copyright (c) 2011-2017 Spuds
+ * @copyright (c) 2011-2021 Spuds
  * @license This Source Code is subject to the terms of the Mozilla Public License
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.5
+ * @version 1.0.6
  *
  */
-
-if (!defined('ELK'))
-	die('No access...');
 
 /**
  * integrate_member_context hook
@@ -44,13 +41,15 @@ function imc_googlemap($user, $display_custom_fields)
  * - Used to add columns / tables to the query so additional data can be loaded for a set
  *
  * @param string $select_columns
- * @param mixed[] $select_tables
+ * @param array $select_tables
  * @param string $set
  */
 function ilmd_googlemap(&$select_columns, &$select_tables, $set)
 {
 	if ($set == 'profile' || $set == 'normal')
+	{
 		$select_columns .= ',mem.latitude, mem.longitude, mem.pindate';
+	}
 }
 
 /**
@@ -59,7 +58,7 @@ function ilmd_googlemap(&$select_columns, &$select_tables, $set)
  * - Called from profile.subs
  * - Used to add additional fields to the profile createlist
  *
- * @param mixed[] $profile_fields
+ * @param array $profile_fields
  */
 function ilpf_googlemap(&$profile_fields)
 {
@@ -72,7 +71,7 @@ function ilpf_googlemap(&$profile_fields)
 			'type' => 'callback',
 			'callback_func' => 'googlemap_modify',
 			'permission' => 'googleMap_place',
-			'input_validate' => function(&$value) {
+			'input_validate' => function (&$value) {
 				global $profile_vars, $cur_profile;
 
 				// Set latitude to a float value
@@ -84,12 +83,12 @@ function ilpf_googlemap(&$profile_fields)
 
 				// Right now is a good time for the pin date ;)
 				$pintime = time();
-				$profile_vars['pindate'] = (int) $pintime;
-				$cur_profile['pindate'] = (int) $pintime;
+				$profile_vars['pindate'] = $pintime;
+				$cur_profile['pindate'] = $pintime;
 
 				return true;
 			},
-			'preload' => function() {
+			'preload' => function () {
 				global $context, $cur_profile;
 
 				$context['member']['googleMap']['latitude'] = (float) $cur_profile['latitude'];
@@ -109,7 +108,7 @@ function ilpf_googlemap(&$profile_fields)
  * - Used to add additional sections to the profile context for a page load, here we
  * add latitude to be displayed, its defined by integrate_load_profile_fields above
  *
- * @param mixed[] $fields
+ * @param array $fields
  */
 function ifpf_googlemap(&$fields)
 {
@@ -122,7 +121,7 @@ function ifpf_googlemap(&$fields)
  * - Menu Button hook, called from subs.php
  * - used to add top menu buttons
  *
- * @param mixed[] $buttons
+ * @param array $buttons
  * @param int $menu_count
  */
 function imb_googlemap(&$buttons, &$menu_count)
@@ -153,17 +152,21 @@ function imb_googlemap(&$buttons, &$menu_count)
  * - Profile save fields hook, called from Profile.controller.php
  * - used to prep and check variables before a profile update is saved
  *
- * @param mixed[] $profile_vars
- * @param mixed[] $post_errors
+ * @param array $profile_vars
+ * @param array $post_errors
  * @param int $memID
  */
 function ips_googlemap(&$profile_vars, &$post_errors, $memID)
 {
 	if (isset($_POST['latitude']))
+	{
 		$profile_vars['latitude'] = $_POST['latitude'] != '' ? (float) $_POST['latitude'] : 0;
+	}
 
 	if (isset($_POST['longitude']))
+	{
 		$profile_vars['longitude'] = $_POST['longitude'] != '' ? (float) $_POST['longitude'] : 0;
+	}
 }
 
 /**
@@ -172,11 +175,11 @@ function ips_googlemap(&$profile_vars, &$post_errors, $memID)
  * - Permissions hook, integrate_load_permissions, called from ManagePermissions.php
  * - used to add new permissions
  *
- * @param mixed[] $permissionGroups
- * @param mixed[] $permissionList
- * @param mixed[] $leftPermissionGroups
- * @param mixed[] $hiddenPermissions
- * @param mixed[] $relabelPermissions
+ * @param array $permissionGroups
+ * @param array $permissionList
+ * @param array $leftPermissionGroups
+ * @param array $hiddenPermissions
+ * @param array $relabelPermissions
  */
 function ilp_googlemap(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions, &$relabelPermissions)
 {
@@ -200,7 +203,7 @@ function ilqh_googlemap()
  * - Admin Hook, integrate_admin_areas, called from Admin.php
  * - used to add/modify admin menu areas
  *
- * @param mixed[] $admin_areas
+ * @param array $admin_areas
  */
 function iaa_googlemap(&$admin_areas)
 {
@@ -216,7 +219,7 @@ function iaa_googlemap(&$admin_areas)
  * - Addons hook, integrate_sa_modify_modifications, called from AddonSettings.controller
  * - used to add new menu screens areas.
  *
- * @param mixed[] $sub_actions
+ * @param array $sub_actions
  */
 function imm_googlemap(&$sub_actions)
 {
@@ -288,11 +291,6 @@ function ModifyGoogleMapSettings()
 			'SATELLITE' => $txt['googleMap_satellite'],
 			'HYBRID' => $txt['googleMap_hybrid'])
 		),
-		array('select', 'googleMap_NavType', array(
-			'LARGE' => $txt['googleMap_largemapcontrol3d'],
-			'SMALL' => $txt['googleMap_smallzoomcontrol3d'],
-			'DEFAULT' => $txt['googleMap_defaultzoomcontrol'])
-		),
 		array('check', 'googleMap_EnableLegend'),
 		array('check', 'googleMap_KMLoutput_enable', 'helptext' => $txt['googleMap_KMLoutput_enable_info']),
 		array('int', 'googleMap_PinNumber', 'subtext' => $txt['googleMap_PinNumber_info']),
@@ -304,21 +302,9 @@ function ModifyGoogleMapSettings()
 		array('check', 'googleMap_BoldMember'),
 		// Member Pin Style
 		array('title', 'googleMap_MemeberpinSettings'),
-		array('check', 'googleMap_PinGender'),
 		array('text', 'googleMap_PinBackground', 6),
 		array('text', 'googleMap_PinForeground', 6),
-		array('select', 'googleMap_PinStyle', array(
-			'googleMap_plainpin' => $txt['googleMap_plainpin'],
-			'googleMap_textpin' => $txt['googleMap_textpin'],
-			'googleMap_iconpin' => $txt['googleMap_iconpin'])
-		),
-		array('check', 'googleMap_PinShadow'),
 		array('int', 'googleMap_PinSize', 2),
-		array('text', 'googleMap_PinText', 10, 'postinput' => $txt['googleMap_PinText_info']),
-		array('select', 'googleMap_PinIcon',
-			gmm_pinArray(),
-			'postinput' => $txt['googleMap_PinIcon_info']
-		),
 		// Clustering Options
 		array('title', 'googleMap_ClusterpinSettings'),
 		array('check', 'googleMap_EnableClusterer', 'helptext' => $txt['googleMap_EnableClusterer_info']),
@@ -332,19 +318,11 @@ function ModifyGoogleMapSettings()
 		array('text', 'googleMap_ClusterForeground', 6),
 		array('select', 'googleMap_ClusterStyle', array(
 			'googleMap_plainpin' => $txt['googleMap_plainpin'],
-			'googleMap_textpin' => $txt['googleMap_textpin'],
-			'googleMap_iconpin' => $txt['googleMap_iconpin'],
 			'googleMap_zonepin' => $txt['googleMap_zonepin'],
 			'googleMap_peepspin' => $txt['googleMap_peepspin'],
 			'googleMap_talkpin' => $txt['googleMap_talkpin'])
 		),
-		array('check', 'googleMap_ClusterShadow'),
 		array('int', 'googleMap_ClusterSize', '2'),
-		array('text', 'googleMap_ClusterText', 'postinput' => $txt['googleMap_PinText_info']),
-		array('select', 'googleMap_ClusterIcon',
-			gmm_pinArray(),
-			'postinput' => $txt['googleMap_PinIcon_info']
-		),
 	);
 
 	// Load the settings to the form class
@@ -361,108 +339,15 @@ function ModifyGoogleMapSettings()
 	// Continue on to the settings template
 	$context['post_url'] = $scripturl . '?action=admin;area=addonsettings;save;sa=googlemap';
 	$context['settings_title'] = $txt['googleMap'];
-	loadJavascriptFile('jscolor/jscolor.js');
+	loadJavascriptFile('jscolor.min.js');
 	addInlineJavascript('
-		var myPicker1 = new jscolor.color(document.getElementById(\'googleMap_PinBackground\'), {});
-		myPicker1.fromString(document.getElementById(\'googleMap_PinBackground\').value);
-
-		var myPicker2 = new jscolor.color(document.getElementById(\'googleMap_PinForeground\'), {});
-		myPicker2.fromString(document.getElementById(\'googleMap_PinForeground\').value);
-
-		var myPicker3 = new jscolor.color(document.getElementById(\'googleMap_ClusterBackground\'), {});
-		myPicker3.fromString(document.getElementById(\'googleMap_ClusterBackground\').value);
-
-		var myPicker4 = new jscolor.color(document.getElementById(\'googleMap_ClusterForeground\'), {});
-		myPicker4.fromString(document.getElementById(\'googleMap_ClusterForeground\').value);', true);
+		document.getElementById(\'googleMap_PinBackground\').setAttribute("data-jscolor", "");
+		document.getElementById(\'googleMap_PinForeground\').setAttribute("data-jscolor", "");
+		document.getElementById(\'googleMap_ClusterBackground\').setAttribute("data-jscolor", "");
+		document.getElementById(\'googleMap_ClusterForeground\').setAttribute("data-jscolor", "");',
+	true);
 
 	Settings_Form::prepare_db($config_vars);
-	return;
-}
-
-/**
- * Defines an array of pins icons for use in the settings form
- */
-function gmm_pinArray()
-{
-	global $txt;
-
-	return array(
-		'academy' => $txt['academy'],
-		'activities' => $txt['activities'],
-		'airport' => $txt['airport'],
-		'amusement' => $txt['amusement'],
-		'aquarium' => $txt['aquarium'],
-		'art-gallery' => $txt['art-gallery'],
-		'atm' => $txt['atm'],
-		'baby' => $txt['baby'],
-		'bank-dollar' => $txt['bank-dollar'],
-		'bank-euro' => $txt['bank-euro'],
-		'bank-intl' => $txt['bank-intl'],
-		'bank-pound' => $txt['bank-pound'],
-		'bank-yen' => $txt['bank-yen'],
-		'bar' => $txt['bar'],
-		'barber' => $txt['barber'],
-		'beach' => $txt['beach'],
-		'beer' => $txt['beer'],
-		'bicycle' => $txt['bicycle'],
-		'books' => $txt['books'],
-		'bowling' => $txt['bowling'],
-		'bus' => $txt['bus'],
-		'cafe' => $txt['cafe'],
-		'camping' => $txt['camping'],
-		'car-dealer' => $txt['car-dealer'],
-		'car-rental' => $txt['car-rental'],
-		'car-repair' => $txt['car-repair'],
-		'casino' => $txt['casino'],
-		'caution' => $txt['caution'],
-		'cemetery-grave' => $txt['cemetery-grave'],
-		'cemetery-tomb' => $txt['cemetery-tomb'],
-		'cinema' => $txt['cinema'],
-		'civic-building' => $txt['civic-building'],
-		'computer' => $txt['computer'],
-		'corporate' => $txt['corporate'],
-		'fire' => $txt['fire'],
-		'flag' => $txt['flag'],
-		'floral' => $txt['floral'],
-		'helicopter' => $txt['helicopter'],
-		'home' => $txt['home1'],
-		'info' => $txt['info'],
-		'landslide' => $txt['landslide'],
-		'legal' => $txt['legal'],
-		'location' => $txt['location1'],
-		'locomotive' => $txt['locomotive'],
-		'medical' => $txt['medical'],
-		'mobile' => $txt['mobile'],
-		'motorcycle' => $txt['motorcycle'],
-		'music' => $txt['music'],
-		'parking' => $txt['parking'],
-		'pet' => $txt['pet'],
-		'petrol' => $txt['petrol'],
-		'phone' => $txt['phone'],
-		'picnic' => $txt['picnic'],
-		'postal' => $txt['postal'],
-		'repair' => $txt['repair'],
-		'restaurant' => $txt['restaurant'],
-		'sail' => $txt['sail'],
-		'school' => $txt['school'],
-		'scissors' => $txt['scissors'],
-		'ship' => $txt['ship'],
-		'shoppingbag' => $txt['shoppingbag'],
-		'shoppingcart' => $txt['shoppingcart'],
-		'ski' => $txt['ski'],
-		'snack' => $txt['snack'],
-		'snow' => $txt['snow'],
-		'sport' => $txt['sport'],
-		'star' => $txt['star'],
-		'swim' => $txt['swim'],
-		'taxi' => $txt['taxi'],
-		'train' => $txt['train'],
-		'truck' => $txt['truck'],
-		'wc-female' => $txt['wc-female'],
-		'wc-male' => $txt['wc-male'],
-		'wc' => $txt['wc'],
-		'wheelchair' => $txt['wheelchair'],
-	);
 }
 
 /**
@@ -479,6 +364,7 @@ function gmm_integrate_whos_online($actions)
 	if (isset($actions['action']) && $actions['action'] === 'GoogleMap' && !empty($modSettings['googleMap_Enable']) && allowedTo('googleMap_view'))
 	{
 		loadlanguage('GoogleMap');
+
 		return (isset($actions['sa']) && $actions['sa'] === 'kml') ? $txt['whoall_kml'] : $txt['whoall_googlemap'];
 	}
 
