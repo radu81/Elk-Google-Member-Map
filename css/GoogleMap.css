@@ -1,8 +1,6 @@
 /* Google Maps */
 .googleMap {
 	overflow: hidden;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	border: 0;
 	font-size: small;
@@ -20,49 +18,32 @@
 	margin-left: 4px;
 }
 
+#gmm {
+	width: 100%;
+	clear: both;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
 #mapWindow {
-	position: relative;
 	margin: auto;
 	padding: 6px;
 	border: 1px solid #CCCCCC;
 	border-bottom-color: #999999;
-	-webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
-	-moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
 	box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
 	color: #000000;
+	height: 500px;
 }
 
-.sidebarleft, .sidebarright {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	width: 20%;
-}
-
-.sidebarleft {
-	float: left;
-	padding-right: 5px;
-}
-
-.sidebarright {
-	float: right;
-	padding-left: 5px;
+#map {
+	height: 100%;
 }
 
 .mappanel {
-	float: left;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	width: 80%;
-}
-
-.googleMap ul ul {
-	padding: 3px 0 0 0;
-}
-
-.googleMap ul ul li {
-	display: inline;
+	flex: 1 1 auto;
+	width: 200px;
 }
 
 #googleSidebar {
@@ -76,16 +57,44 @@
 	white-space: nowrap;
 }
 
+.sidebarleft, .sidebarright {
+	box-sizing: border-box;
+	width: 225px;
+	flex: 0 0 auto;
+}
+
+.sidebarleft {
+	float: left;
+	padding-right: 5px;
+}
+
+.sidebarright {
+	float: right;
+	padding-left: 5px;
+}
+
+.googleMap ul ul {
+	padding: 3px 0 0 0;
+}
+
+.googleMap ul ul li {
+	display: inline;
+}
+
 #googleMap_Legend {
 	overflow: auto;
 	margin: 0 auto;
 }
 
+.cluster > img {
+	width: 100%;
+	height: auto;
+}
+
 #googleMapReset {
-	position: absolute;
-	top: 36px;
-	left: 36px;
-	display: block;
+	position: relative;
+	bottom: 25px;
+	left: 5px;
 	width: 16px;
 	height: 16px;
 	border: 1px dotted #EEEEEE;
@@ -117,8 +126,21 @@
 	color: #000000;
 }
 
+.svgicon {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	stroke-width: 0;
+	stroke: currentColor;
+	fill: currentColor;
+}
+
 @media screen and (max-width: 50em) {
+	#gmm {
+		display: block;
+	}
 	.sidebarleft, .sidebarright, .mappanel {
+
 		float: none;
 		width: 100%;
 	}

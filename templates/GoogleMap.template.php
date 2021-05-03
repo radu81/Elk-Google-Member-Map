@@ -3,12 +3,12 @@
 /**
  * @package "Google Member Map" Addon for Elkarte
  * @author Spuds
- * @copyright (c) 2011-2017 Spuds
+ * @copyright (c) 2011-2021 Spuds
  * @license This Source Code is subject to the terms of the Mozilla Public License
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.3
+ * @version 1.0.6
  *
  */
 
@@ -43,23 +43,27 @@ function template_map()
 							<span class="align_left">', $txt['googleMap'], '</span>
 						</h2>
 						<div id="mapWindow">
-							<div id="map" style="height: 500px;"></div>
-							<div id="googleMapReset" onclick="resetMap(); return false;" title="'. $txt['googleMap_Reset'] . '"></div>
+							<div id="map"></div>
+							<div id="googleMapReset" onclick="resetMap(); return false;" title="' . $txt['googleMap_Reset'] . '"></div>
 						</div>';
 
 		// Set the text for the number of pins we are, or can, show
 		if ($context['total_pins'] >= $modSettings['googleMap_PinNumber'] && $modSettings['googleMap_PinNumber'] != 0)
+		{
 			echo
-						sprintf($txt['googleMap_Thereare'], '<strong>(' . $modSettings['googleMap_PinNumber'] . '+)</strong>');
+			sprintf($txt['googleMap_Thereare'], '<strong>(' . $modSettings['googleMap_PinNumber'] . '+)</strong>');
+		}
 		else
+		{
 			echo
-						sprintf($txt['googleMap_Thereare'], '<strong>(' . $context['total_pins'] . ')</strong>');
+			sprintf($txt['googleMap_Thereare'], '<strong>(' . $context['total_pins'] . ')</strong>');
+		}
 
 		echo '
 					</div>';
 
 		// Show a right sidebar?
-		if (!empty($modSettings['googleMap_Sidebar']) && $modSettings['googleMap_Sidebar'] == 'right')
+		if (!empty($modSettings['googleMap_Sidebar']) && $modSettings['googleMap_Sidebar'] === 'right')
 		{
 			echo '
 					<div class="sidebarright">
@@ -80,26 +84,34 @@ function template_map()
 		if (!empty($modSettings['googleMap_EnableLegend']))
 		{
 			echo '
+				<svg style="position: absolute; overflow: hidden" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<defs>
+					<symbol id="icon-cluster" viewBox="0 0 36 36">
+						<path d="M18 0c-6.213 0-11.25 5.037-11.25 11.25 0 11.25 11.25 24.75 11.25 24.75s11.25-13.5 11.25-24.75c0-6.213-5.037-11.25-11.25-11.25zM18 18c-3.728 0-6.75-3.022-6.75-6.75s3.022-6.75 6.75-6.75 6.75 3.022 6.75 6.75-3.022 6.75-6.75 6.75z"></path>
+					</symbol>
+					<symbol id="icon-member" viewBox="0 0 848 1280">
+						<path d="M393.5 1c-86 6.4-163.8 34.6-227.9 82.7-33.4 25.1-70.9 62.1-94.3 93.1C30.7 230.7 8.9 288.6 1.8 361.5c-1.9 19.9-1.6 70 .5 86.3 7.5 56.7 27.2 105.7 74 183.7C99.8 670.6 114.4 692.9 194 812c49.8 74.4 58.1 87.2 73.8 114.1 42 71.9 75.6 142.2 99.2 207.4 11.4 31.7 17.1 50.4 32.5 107.5 3.6 13.5 7.5 26.4 8.6 28.7 4.9 10.1 15.3 13.4 23.7 7.3 7.8-5.7 11.5-14.6 24.7-59.7 25-85.4 39.5-124.4 68.9-184.8 35.2-72.3 75-138.2 159.1-263.5 62.4-93 97.3-150.6 125.9-207.8 16.8-33.5 25.5-56.5 30-79.4 9.2-46.1 9.9-115.2 1.6-157.9-11.2-57.9-37.9-114-78.8-165.6-11.7-14.8-44.8-47.6-61.1-60.6C635.2 44.3 556.3 12 470 2.4 453.5.6 409.9-.2 393.5 1z"></path>
+					</symbol>
+					</defs>
+				</svg>';
+
+			echo '
 				<div class="clear">
 					<h2 class="category_header">
 						<span class="align_left">', $txt['googleMap_Legend'], '</span>
 					</h2>
-					<table id="googleMap_Legend" class="centertext ">
+					<table id="googleMap_Legend" class="centertext">
 						<tr>';
 
-			if (empty($modSettings['googleMap_PinGender']))
-				echo '
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_MemberPin'], '</td>';
-			else
-				echo '
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_AndrogynyPin'], '</td>
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['mpin']), '" alt="" />', $txt['googleMap_MalePin'], '</td>
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['fpin']), '" alt="" />', $txt['googleMap_FemalePin'], '</td>';
+			echo '
+							<td>
+								<svg class="svgicon" style="color: #' . $modSettings['googleMap_PinBackground'] . '"><use href="#icon-member"></use></svg>', $txt['googleMap_MemberPin'], '
+							</td>';
+
 
 			if (!empty($modSettings['googleMap_EnableClusterer']) && ($context['total_pins'] > (!empty($modSettings['googleMap_MinMarkertoCluster']) ? $modSettings['googleMap_MinMarkertoCluster'] : 0)))
 			{
-				$codebase = '//raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages';
-				$chartbase = "//chart.googleapis.com/chart";
+				$codebase = '//github.com/googlemaps/js-markerclustererplus/raw/main';
 
 				switch ($modSettings['cpin'])
 				{
@@ -113,11 +125,14 @@ function template_map()
 						$pinsrc = $codebase . '/images/conv30.png';
 						break;
 					default:
-						$pinsrc = $chartbase . $modSettings['cpin'];
+						$pinsrc = '';
 				}
 
 				echo '
-								<td><img src="', htmlspecialchars($pinsrc), '" height=37 alt="" />', $txt['googleMap_GroupOfPins'], '</td>';
+								<td>', empty($pinsrc) ? '
+									<svg class="svgicon" style="color: #' . $modSettings['googleMap_ClusterBackground'] . '"><use href="#icon-cluster"></use></svg>' : '
+									<img src="' . htmlspecialchars($pinsrc) . '" height=37 alt="" />', $txt['googleMap_GroupOfPins'], '
+								</td>';
 			}
 
 			echo '
@@ -130,21 +145,25 @@ function template_map()
 
 		// If they can place a pin, give them a hint
 		if ($context['place_pin'])
+		{
 			echo '
 							<tr>
 								<td>
 									<a href="', $scripturl, '?action=profile;area=forumprofile#GMAP">', $txt['googleMap_AddPinNote'], '</a>
 								</td>
 							</tr>';
+		}
 
 		// Google earth klm output enabled?
 		if (!empty($modSettings['googleMap_KMLoutput_enable']))
+		{
 			echo '
 							<tr>
 								<td style=text-align: center;">
 									<a href="', $scripturl, '?action=GoogleMap;sa=kml"><img src="', $settings['default_theme_url'], '/images/google_earth_feed.gif" border="0" alt="" /></a>
 								</td>
 							</tr>';
+		}
 
 		// Done with the bottom table
 		echo '
@@ -172,7 +191,7 @@ function template_profile_googlemap_modify()
 		echo '
 		<dt id="GMAP">
 			<strong>', $txt['googleMap'], '</strong>
-			<br /><span class="smalltext">'. $txt['googleMap_PleaseClick'].'<br />' . $txt['googleMap_Disclaimer'] . '</span>
+			<br /><span class="smalltext">' . $txt['googleMap_PleaseClick'] . '<br />' . $txt['googleMap_Disclaimer'] . '</span>
 		</dt>
 		<dd>
 		<script src="//maps.google.com/maps/api/js?libraries=places&key=' . $modSettings['googleMap_Key'] . '"></script>
@@ -182,7 +201,8 @@ function template_profile_googlemap_modify()
         <input type="hidden" name="longitude" id="longitude" size="50" value="', $context['member']['googleMap']['longitude'], '" />
         <input type="hidden" name="pindate" id="pindate" size="50" value="', $context['member']['googleMap']['pindate'], '" />
         <script>
-		var markersArray = [];
+		let markersArray = [],
+			i;
 
 		// Used to clear any previous pin placed on the map
 		function clearOverlays() {
@@ -197,8 +217,8 @@ function template_profile_googlemap_modify()
 
 		// Show the map
 		function initialize() {
-			var latlng = new google.maps.LatLng(', (!empty($context['member']['googleMap']['latitude']) ? $context['member']['googleMap']['latitude'] : (!empty($modSettings['googleMap_DefaultLat']) ? $modSettings['googleMap_DefaultLat'] : 0)) . ', ' . (!empty($context['member']['googleMap']['longitude']) ? $context['member']['googleMap']['longitude'] : (!empty($modSettings['googleMap_DefaultLong']) ? $modSettings['googleMap_DefaultLong'] : 0)), ');
-			var options = {
+			let latlng = new google.maps.LatLng(', (!empty($context['member']['googleMap']['latitude']) ? $context['member']['googleMap']['latitude'] : (!empty($modSettings['googleMap_DefaultLat']) ? $modSettings['googleMap_DefaultLat'] : 0)) . ', ' . (!empty($context['member']['googleMap']['longitude']) ? $context['member']['googleMap']['longitude'] : (!empty($modSettings['googleMap_DefaultLong']) ? $modSettings['googleMap_DefaultLong'] : 0)), ');
+			let options = {
 				zoom: ', !empty($context['member']['googleMap']['latitude']) ? 15 : (!empty($modSettings['googleMap_DefaultZoom']) ? $modSettings['googleMap_DefaultZoom'] : 4), ',
 				center: latlng,
 				scrollwheel: false,
@@ -215,6 +235,7 @@ function template_profile_googlemap_modify()
 
 		// show the member pin, and provide a way to remove it,  if one has been set
 		if (!empty($context['member']['googleMap']['latitude']) && !empty($context['member']['googleMap']['longitude']))
+		{
 			echo '
 			var marker = new google.maps.Marker({
 				position: latlng,
@@ -228,6 +249,7 @@ function template_profile_googlemap_modify()
 				document.getElementById("latitude").value = 0;
 				document.getElementById("longitude").value = 0;
 			});';
+		}
 
 		echo '
 			// Listen and act on a map click, used to add pins
