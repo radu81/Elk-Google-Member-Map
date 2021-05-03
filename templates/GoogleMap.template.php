@@ -8,7 +8,7 @@
  * version 1.1 (the "License"). You can obtain a copy of the License at
  * http://mozilla.org/MPL/1.1/.
  *
- * @version 1.0.3
+ * @version 1.0.5
  *
  */
 
@@ -88,18 +88,18 @@ function template_map()
 						<tr>';
 
 			if (empty($modSettings['googleMap_PinGender']))
-				echo '
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_MemberPin'], '</td>';
+				echo '		
+								<td><img src="//chart.apis.google.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_MemberPin'], '</td>';
 			else
 				echo '
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_AndrogynyPin'], '</td>
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['mpin']), '" alt="" />', $txt['googleMap_MalePin'], '</td>
-								<td><img src="//chart.googleapis.com/chart', htmlspecialchars($modSettings['fpin']), '" alt="" />', $txt['googleMap_FemalePin'], '</td>';
+								<td><img src="//chart.apis.google.com/chart', htmlspecialchars($modSettings['npin']), '" alt="" />', $txt['googleMap_AndrogynyPin'], '</td>
+								<td><img src="//chart.apis.google.com/chart', htmlspecialchars($modSettings['mpin']), '" alt="" />', $txt['googleMap_MalePin'], '</td>
+								<td><img src="//chart.apis.google.com/chart', htmlspecialchars($modSettings['fpin']), '" alt="" />', $txt['googleMap_FemalePin'], '</td>';
 
 			if (!empty($modSettings['googleMap_EnableClusterer']) && ($context['total_pins'] > (!empty($modSettings['googleMap_MinMarkertoCluster']) ? $modSettings['googleMap_MinMarkertoCluster'] : 0)))
 			{
 				$codebase = '//raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages';
-				$chartbase = "//chart.googleapis.com/chart";
+				$chartbase = '//chart.apis.google.com/chart';
 
 				switch ($modSettings['cpin'])
 				{
